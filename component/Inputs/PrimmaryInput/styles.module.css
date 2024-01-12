@@ -1,0 +1,37 @@
+.pInput {
+  display: flex;
+  flex-direction: column;
+}
+.pInput label {
+  color: var(--text-secondary, #4c4d4d);
+
+  /* Mobile/Small copy */
+  font-family: Spline Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 166.667% */
+}
+
+.pInput > input {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid var(--border-default, #e4e5e5);
+  font-family: Spline Sans;
+  font-size: 14px;
+  font-style: normal;
+  color: var(--fmil-neutral-300, #696a6c);
+
+  /* Mobile/Button */
+  font-family: Spline Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+  text-transform: capitalize;
+}
+.pInput input:focus {
+  outline: none;
+  box-shadow: none; /* Add a subtle box shadow when focused */
+}

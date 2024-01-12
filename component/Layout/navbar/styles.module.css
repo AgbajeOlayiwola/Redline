@@ -1,0 +1,49 @@
+.nav_bar {
+  background-color: white;
+}
+.navCov {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navLinks {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+}
+.navLinks > p > a {
+  color: #4c4d4d;
+  cursor: pointer;
+  /* Desktop/Caption */
+  font-size: 12px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 150% */
+}
+.navLogo img {
+  width: 43px;
+  height: 31px;
+}
+.userSect {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.userSect div > h1 {
+  color: #4c4d4d;
+  /* Desktop/Small copy */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+.userSect div > p {
+  color: #298caa;
+
+  /* Desktop/Caption */
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 150% */
+}

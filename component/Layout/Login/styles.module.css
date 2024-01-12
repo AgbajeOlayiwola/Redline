@@ -1,0 +1,88 @@
+.train {
+  position: absolute;
+  bottom: 0px;
+}
+.train {
+  width: 100vw;
+  overflow: hidden;
+}
+.train > svg {
+  position: relative;
+  animation: example 2s infinite;
+}
+
+@keyframes example {
+  0%,
+  100% {
+    left: 0;
+  }
+
+  50% {
+    left: -1900px;
+  }
+}
+.bridge {
+  display: flex;
+  width: 100vw;
+  overflow: hidden;
+}
+.loginBoxCover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 63vh;
+  width: 100vw;
+}
+.loginBox {
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border-default, #e4e5e5);
+  background: var(--surface-default, #fff);
+  box-shadow: 0px 4px 30px 0px rgba(163, 163, 163, 0.25),
+    0px 2px 4px 0px rgba(163, 163, 163, 0.25);
+}
+.logFlex {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.loginText {
+  width: 100%;
+}
+.loginText h1 {
+  color: var(--text-default, #0f0f0f);
+
+  /* Mobile/Title */
+  font-family: Spline Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 133.333% */
+  margin-bottom: 0px;
+}
+.loginText p {
+  color: var(--text-secondary, #4c4d4d);
+
+  /* Mobile/Subtitle */
+  font-family: Spline Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 0px;
+  line-height: 20px; /* 166.667% */
+}
+.loginBox form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.error {
+  color: red;
+  font-size: 10px;
+  margin: 0px;
+}

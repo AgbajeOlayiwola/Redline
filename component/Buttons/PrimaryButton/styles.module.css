@@ -1,0 +1,44 @@
+.btn {
+  display: flex;
+  width: 100%;
+  height: 51px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+  background: var(--fmil-neutral-50, #e9e9e9);
+  border: none;
+  width: 100%;
+}
+.Activebtn {
+  display: flex;
+  width: 100%;
+  height: 51px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+  background: var(--fmil-secondary-400-main, #004bff);
+  transition: all 0.5s ease-in-out;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.Activebtn:hover {
+  display: flex;
+  width: 100%;
+  height: 51px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+  background: var(--fmil-secondary-400-main, #0232a2);
+  transition: all 0.5s ease-in-out;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+.outline_btn {
+  border-radius: 100px;
+  border: 1px solid var(--Darkgrey-500, #0f0f0f);
+  padding: 5px 16px;
+  cursor: pointer;
+}
+.outline_btn > p {
+  color: var(--Darkgrey-500, #0f0f0f);
+  /* Mobile/Button */
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 171.429% */
+  text-transform: capitalize;
+  margin: 0px;
+}

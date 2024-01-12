@@ -1,0 +1,94 @@
+.filter_div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.filter_div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.filter_div > div > p {
+  //styleName: Desktop/Caption;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.ticket_filter {
+  display: flex;
+  justify-content: space-between;
+}
+.active_paused {
+  display: flex;
+  gap: 30px;
+}
+.active {
+  padding: 8px 16px 8px 16px;
+  border-radius: 100px;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+}
+.active p {
+  color: white;
+  margin: 0px;
+}
+.paused p {
+  color: #4c4d4d;
+}
+.p_btn {
+  width: 100%;
+}
+.trips {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  background: white;
+  border-radius: 24px;
+}
+.trips svg {
+  font-size: 30px;
+}
+.trips_div p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #a4a6a6;
+}
+.trips_div h1 {
+  font-size: 16px;
+  margin: 0px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.trips_div h2 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  color: #004bff;
+}
+.trips_div h2 span {
+  color: #696a6c;
+}
+.all_trips {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-gap: 5%;
+  grid-row-gap: 30px;
+}
+.ticks h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #0f0f0f;
+}

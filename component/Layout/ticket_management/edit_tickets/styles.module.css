@@ -1,0 +1,48 @@
+.back_save {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.edit_ticket {
+  background: white;
+  padding: 24px;
+  border-radius: 24px;
+}
+.p_input {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 3%;
+  grid-row-gap: 35px;
+}
+.p_input div label {
+  color: #004bff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.pr_btn {
+  width: 30%;
+}
+.ticket_top {
+  margin-bottom: 30px;
+}
+.ticket_top p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  color: #4c4d4d;
+  margin: 0px;
+}
+.ticket_top h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0em;
+  margin: 0px;
+  color: #0f0f0f;
+}
