@@ -1,9 +1,12 @@
+"use client"
 import PrimartButton from "@/component/Buttons/PrimaryButton"
 import PrimaryInput from "@/component/Inputs/PrimmaryInput"
 import { Formik } from "formik"
+import { useRouter } from "next/navigation"
 import * as yup from "yup"
 import styles from "./styles.module.css"
 const LoginLayout = () => {
+  const router = useRouter()
   const initSchema = yup.object().shape({
     name: yup.string().trim().required("Name is required"),
     password: yup.string().required("Please enter your password"),
@@ -54,7 +57,11 @@ const LoginLayout = () => {
               placeholder="Enter Password"
             />
             {errors ? <p className={styles.error}>{errors?.password}</p> : null}
-            <PrimartButton text="Login" active={isValid ? true : false} />
+            <PrimartButton
+              text="Login"
+              active={isValid ? true : false}
+              onClick={() => router.push("/admin/dashboard")}
+            />
           </form>
         )}
       </Formik>

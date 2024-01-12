@@ -1,0 +1,25 @@
+.dash_layout {
+  background: #f9fafb;
+  height: 100vh;
+  padding-bottom: 8%;
+  padding-top: 50px;
+}
+.filter_div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.filter_div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.filter_div > div > p {
+  //styleName: Desktop/Caption;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}

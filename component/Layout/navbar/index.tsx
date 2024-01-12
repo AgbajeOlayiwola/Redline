@@ -11,6 +11,10 @@ const Navbar = () => {
       link: "/admin/dashboard",
     },
     {
+      title: "Ticket sales",
+      link: "/admin/ticket-sales",
+    },
+    {
       title: "Payment",
       link: "/admin/payment",
     },
@@ -25,11 +29,6 @@ const Navbar = () => {
     {
       title: "Ticket management",
       link: "/admin/ticket-management",
-    },
-
-    {
-      title: "Notification",
-      link: "#",
     },
   ]
   return (
