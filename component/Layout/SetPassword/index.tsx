@@ -4,7 +4,7 @@ import { Formik } from "formik"
 import { useEffect, useRef, useState } from "react"
 import * as yup from "yup"
 import styles from "./styles.module.css"
-const SetPassword = () => {
+const SetPassword = ({ previous }: { previous: any }) => {
   const formRef = useRef()
   const [hasEight, setIseight] = useState(false)
   const [isEight, setIsEight] = useState(false)
@@ -87,7 +87,11 @@ const SetPassword = () => {
             {errors ? (
               <p className={styles.error}>{errors?.Confirmpassword}</p>
             ) : null}
-            <PrimartButton text="Login" active={isValid ? true : false} />
+            <PrimartButton
+              text="Login"
+              active={isValid ? true : false}
+              onClick={() => previous()}
+            />
             <br />
             <div className={styles.checks}>
               <div>

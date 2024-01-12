@@ -27,7 +27,7 @@ const Login = () => {
       case 0:
         return <LoginLayout />
       case 1:
-        return <SetPassword />
+        return <SetPassword previous={() => setPage(0)} />
     }
   }
 
