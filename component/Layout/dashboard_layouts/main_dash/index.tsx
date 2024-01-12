@@ -32,14 +32,14 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
     },
   ]
   const location = [
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
-    { name: "New York", time: "4:30" },
+    { name: "Iyana Ipaja", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Agege Station", time: "4:30" },
+    { name: "Yaba Station", time: "4:30" },
   ]
   const trains = [
     { train: "Train 1", condition: "active" },
@@ -99,6 +99,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
                 <Locationsvggreen />
                 <p>{item?.name}</p>
                 <p>{item?.time}</p>
+                <div className={styles.point}></div>
               </div>
             )
           })}
