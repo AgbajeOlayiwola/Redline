@@ -31,6 +31,25 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       progressPaymentPrice: 30,
     },
   ]
+  const location = [
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+    { name: "New York", time: "4:30" },
+  ]
+  const trains = [
+    { train: "Train 1", condition: "active" },
+    { train: "Train 2", condition: "inActive" },
+    { train: "Train 3", condition: "inActive" },
+    { train: "Train 4", condition: "inActive" },
+    { train: "Train 5", condition: "inActive" },
+    { train: "Train 6", condition: "inActive" },
+    { train: "Train 7", condition: "inActive" },
+  ]
   return (
     <div>
       <div className={styles.dash_top}>
@@ -41,9 +60,20 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           </div>
         </div>
         <div className={styles.trains}>
-          <div className={styles.train}>
-            <p>Train 1</p>
-          </div>
+          {trains.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  item?.condition === "active"
+                    ? styles.train
+                    : styles.trainInactive
+                }
+              >
+                <p>{item?.train}</p>
+              </div>
+            )
+          })}
         </div>
         <div className={styles.movement}>
           <div className={styles.loca}>
@@ -62,12 +92,16 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
             <OutlineButton text="Move To Next Station" onClick={() => null} />
           </div>
         </div>
-        <div>
-          <div className={styles.currentLocation}>
-            <Locationsvggreen />
-            <p>Iyana-ipaja</p>
-            <p>4:30</p>
-          </div>
+        <div className={styles.local}>
+          {location.map((item, index) => {
+            return (
+              <div key={index} className={styles.currentLocation}>
+                <Locationsvggreen />
+                <p>{item?.name}</p>
+                <p>{item?.time}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
       <div className={styles.dash_top}>
