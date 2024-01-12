@@ -23,12 +23,12 @@ const Navbar = () => {
       link: "/admin/complaint",
     },
     {
-      title: "Agents",
-      link: "/admin/agents",
-    },
-    {
       title: "Ticket management",
       link: "/admin/ticket-management",
+    },
+    {
+      title: "Agents",
+      link: "/admin/agents",
     },
   ]
   return (
