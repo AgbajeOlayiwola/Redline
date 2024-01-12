@@ -12,7 +12,7 @@ import { Bar } from "react-chartjs-2"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-export function VerticalBarChart({ ChartData }: { ChartData: any }) {
+export function VerticalBarChart({ ChartData }) {
   const options = {
     scales: {
       xAxes: [
@@ -39,19 +39,19 @@ export function VerticalBarChart({ ChartData }: { ChartData: any }) {
       },
       tooltip: {
         callbacks: {
-          label: function (data: any) {
+          label: function (data) {
             return "Custom Label Text:" + data.formattedValue
           },
         },
       },
       datalabels: {
-        formatter: function (value: any) {
+        formatter: function (value) {
           //custom money icon
           return "₺" + new Intl.NumberFormat("tr-TR").format(value)
         },
         color: "white",
         font: {
-          weight: "bold" as const,
+          weight: "bold",
           size: 1,
           family: "poppins",
         },
@@ -61,15 +61,15 @@ export function VerticalBarChart({ ChartData }: { ChartData: any }) {
   // The following colors will be used sequentially for the chart bars
   const backgroundColors = ["#53D9D9", "#002B49", "#0067A0"]
   const data = {
-    labels: ChartData.map((item: any) => item.companyName),
+    labels: ChartData.map((item) => item.companyName),
     datasets: [
       {
         barPercentage: 1,
         barThickness: 906,
         maxBarThickness: 40,
         minBarLength: 2,
-        label: ChartData.map((item: any) => item.progressPaymentPrice),
-        data: ChartData.map((item: any) => item.progressPaymentPrice),
+        label: ChartData.map((item) => item.progressPaymentPrice),
+        data: ChartData.map((item) => item.progressPaymentPrice),
         backgroundColor: backgroundColors,
         borderWidth: 0.1,
       },
