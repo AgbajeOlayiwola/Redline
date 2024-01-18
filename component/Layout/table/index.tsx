@@ -53,7 +53,7 @@ const Table = ({
                   <p>{item?.amount}</p>
                 </div>
                 <div>
-                  <p>{item?.status.replace("_", " ").toLowerCase()}</p>
+                  <p>{item?.status?.replace("_", " ").toLowerCase()}</p>
                 </div>
                 <div className={styles.action}>
                   <FiMoreVertical onClick={() => handleToggleEdit(index)} />
