@@ -46,6 +46,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .loca > h1 {
   color: var(--Text-Default, #0f0f0f);
@@ -109,11 +110,20 @@
 }
 .active {
   border: solid 1px #000;
+  cursor: pointer;
   padding: 5px;
   border-radius: 100px;
   transition: all ease-in-out 0.3s;
 }
 .Inactive {
+  cursor: pointer;
   padding: 5px;
   transition: all ease-in-out 0.3s;
+}
+.trains {
+  position: relative;
+}
+.trainSvg {
+  position: absolute;
+  left: 32vw;
 }

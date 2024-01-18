@@ -1,6 +1,7 @@
 "use client"
 import OutlineButton from "@/component/Buttons/outline_button"
 import Locationsvggreen from "@/component/SVGs/locationsvggreen"
+import Trans_train from "@/component/SVGs/trans_train"
 import { VerticalBarChart } from "@/component/vertical_bar_chart"
 import { useFetchTrainMutation } from "@/redux/api/mutationApi"
 import { setAllTrain } from "@/redux/slices/allTrainSlice"
@@ -114,15 +115,16 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
               .route.map((station: any, index: any, array: any) => (
                 <div className={styles.loca} key={index}>
                   {index === 0 || index === array.length - 1 ? (
-                    <>
+                    <div>
                       <h1>{station?.station}</h1>
-                      <p>Iyana Ipaja</p>
-                      {/* Uncomment this if you want to include Trans_train for the first and last stations */}
-                      {/* {index === 0 && <Trans_train />} */}
-                    </>
+                      <p>{station?.time}</p>
+                    </div>
                   ) : null}
                 </div>
               ))}
+          <div className={styles.trainSvg}>
+            <Trans_train />
+          </div>
         </div>
         <div className={styles.red_sched}>
           <p>Train Route</p>
