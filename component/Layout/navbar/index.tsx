@@ -1,13 +1,15 @@
 import Logosvg from "@/component/SVGs/logosvg"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useSelector } from "react-redux"
 import Cover from "../cover"
 import styles from "./styles.module.css"
 
 const Navbar = () => {
   const { profile }: any = useSelector((store) => store)
-
+  const navigation = usePathname()
+  console.log(navigation)
   const navData = [
     {
       title: "Dashboard",
@@ -52,6 +54,11 @@ const Navbar = () => {
               return (
                 <p
                   key={index}
+                  id={
+                    navigation === item?.link
+                      ? styles.linkactive
+                      : styles.linkInactive
+                  }
                   className={item?.active ? styles.active : styles.inactive}
                 >
                   <Link href={item?.link}> {item?.title}</Link>

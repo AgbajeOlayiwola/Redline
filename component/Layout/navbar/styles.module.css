@@ -57,3 +57,11 @@
   font-weight: 400;
   line-height: 18px; /* 150% */
 }
+#linkactive {
+  border-bottom: solid 1px #000;
+  transition: all ease-in-out 0.5s;
+}
+#linkInactive {
+  border-bottom: none;
+  transition: all ease-in-out 0.5s;
+}
