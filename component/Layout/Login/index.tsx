@@ -73,6 +73,7 @@ const LoginLayout = () => {
               label="Name"
               type="text"
               name="name"
+              value={values?.name}
               onchange={(e: any) => setFieldValue("name", e.target.value)}
               placeholder="Enter Name"
             />
@@ -81,6 +82,7 @@ const LoginLayout = () => {
               label="Password"
               name="password"
               type="text"
+              value={values?.password}
               onchange={(e: any) => setFieldValue("password", e.target.value)}
               placeholder="Enter Password"
             />

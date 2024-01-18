@@ -66,6 +66,7 @@ const SetPassword = ({ previous }: { previous: any }) => {
               label="Create password"
               type="text"
               name="Createpassword"
+              value={values?.Createpassword}
               onchange={(e: any) =>
                 setFieldValue("Createpassword", e.target.value)
               }
@@ -78,6 +79,7 @@ const SetPassword = ({ previous }: { previous: any }) => {
               label="Confirm password"
               name="Confirmpassword"
               type="text"
+              value={values?.Confirmpassword}
               onchange={(e: any) => {
                 setFieldValue("Confirmpassword", e.target.value),
                   setChaeckPassword(e.target.value)

@@ -16,6 +16,8 @@ import storage from "redux-persist/lib/storage"
 import { mutationApi } from "../api/mutationApi"
 import allTrainReducr from "../slices/allTrainSlice"
 import cookieReducer from "../slices/cookieSlice"
+import editAgentReducer from "../slices/edit-agent-slice"
+import editTicketReducer from "../slices/edit-ticket-slice"
 import profileReduceer from "../slices/profileSlice"
 import singleTrainReducer from "../slices/singleTrainSlice"
 const reducers = combineReducers({
@@ -24,12 +26,21 @@ const reducers = combineReducers({
   profile: profileReduceer,
   singleTrain: singleTrainReducer,
   allTrain: allTrainReducr,
+  editAgent: editAgentReducer,
+  editTicket: editTicketReducer,
 })
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cookie", "profile", "singleTrain", "allTrain"],
+  whitelist: [
+    "cookie",
+    "profile",
+    "singleTrain",
+    "allTrain",
+    "editTicket",
+    "editAgent",
+  ],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

@@ -1,17 +1,22 @@
+import { setEditAgentt } from "@/redux/slices/edit-agent-slice"
 import { useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
+import { useDispatch } from "react-redux"
 import styles from "./styles.module.css"
 const Table = ({
   table_head,
   table_body,
   onClick,
   deleteAction,
+  editModal,
 }: {
   table_head?: any
   table_body?: any
   onClick?: any
   deleteAction?: any
+  editModal?: any
 }) => {
+  const dispatch = useDispatch()
   const [showAction, setShowAction] = useState(false)
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
   const handleToggleEdit = (index: any) => {
@@ -59,7 +64,13 @@ const Table = ({
                   <FiMoreVertical onClick={() => handleToggleEdit(index)} />
                   {showAction && selectedItemIndex === index ? (
                     <div className={styles.show}>
-                      <p>Edit</p>
+                      <p
+                        onClick={() => {
+                          dispatch(setEditAgentt(item)), editModal()
+                        }}
+                      >
+                        Edit
+                      </p>
                       <h6 onClick={() => deleteAction(item?.ref)}>Delete</h6>
                     </div>
                   ) : null}

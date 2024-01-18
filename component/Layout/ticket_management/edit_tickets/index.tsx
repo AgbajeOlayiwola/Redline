@@ -1,13 +1,21 @@
 import PrimartButton from "@/component/Buttons/PrimaryButton"
 import PrimaryInput from "@/component/Inputs/PrimmaryInput"
 import Back_svg from "@/component/SVGs/back_svg"
-import { useCreateTicketMutation } from "@/redux/api/mutationApi"
+import {
+  useCreateTicketMutation,
+  useEditTicketMutation,
+} from "@/redux/api/mutationApi"
+import { clearEditTicket } from "@/redux/slices/edit-ticket-slice"
 import { Formik } from "formik"
 import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import * as yup from "yup"
 import PrimarySelect from "../../primary_select"
 import styles from "./styles.module.css"
 const Edit_tickets = ({ previous }: { previous: any }) => {
+  const { editTicket }: any = useSelector((store) => store)
+  console.log(editTicket)
+  const dispatch = useDispatch()
   const initSchema = yup.object().shape({
     name: yup.string().trim().required("Name is required"),
     expiry: yup.string().required("Please enter expiry date"),
@@ -17,11 +25,11 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
   })
 
   const initialValues = {
-    name: "",
-    description: "",
-    cost: "",
-    expiry: "",
-    status: "",
+    name: editTicket?.name ? editTicket?.name : "",
+    description: editTicket?.description ? editTicket?.description : "",
+    cost: editTicket?.costPerPerson ? editTicket?.costPerPerson : "",
+    expiry: editTicket?.expiryDays ? editTicket?.expiryDays : "",
+    status: editTicket?.status ? editTicket?.status : "",
   }
 
   const [
@@ -35,31 +43,70 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
       reset: createTicketReset,
     },
   ] = useCreateTicketMutation()
+
+  const [
+    editTickets,
+    {
+      data: editTicketData,
+      isLoading: editTicketLoad,
+      isSuccess: editTicketSuccess,
+      isError: editTicketFalse,
+      error: editTicketErr,
+      reset: editTicketReset,
+    },
+  ] = useEditTicketMutation()
   useEffect(() => {
     if (createTicketSuccess) {
       previous()
     }
   }, [createTicketSuccess])
+  useEffect(() => {
+    if (editTicketSuccess) {
+      previous()
+      dispatch(clearEditTicket())
+    }
+  }, [editTicketSuccess])
 
   const data = ["ACTIVE", "INACTIVE"]
   return (
     <>
       {" "}
       <div className={styles.back_save}>
-        <Back_svg onClick={() => previous()} />
+        <Back_svg
+          onClick={() => {
+            previous(), dispatch(clearEditTicket())
+          }}
+        />
       </div>
       <br />
       <br />
       <div className={styles.edit_ticket}>
         <div className={styles.ticket_top}>
-          <h1>New ticket</h1>
-          <p>Set up a new ticket for commuters</p>
+          {editTicket?.name ? (
+            <>
+              <h1>Edit ticket</h1>
+              <p>Edit ticket for commuters</p>
+            </>
+          ) : (
+            <>
+              <h1>New ticket</h1>
+              <p>Set up a new ticket for commuters</p>
+            </>
+          )}
         </div>
         <Formik
           validationSchema={initSchema}
           initialValues={initialValues}
           validateOnChange={true}
           onSubmit={(values, { setSubmitting }) => {
+            const editData = {
+              ticket_id: editTicket?.ticket_id,
+              name: values?.name,
+              description: values?.description,
+              expiryDays: values?.expiry,
+              costPerPerson: values?.cost,
+              status: values?.status,
+            }
             const data = {
               tickets: [
                 {
@@ -73,7 +120,11 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                 },
               ],
             }
-            createTicket(data)
+            if (editTicket?.name) {
+              editTickets(editData)
+            } else {
+              createTicket(data)
+            }
           }}
         >
           {({
@@ -93,6 +144,7 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                     label="Ticket name"
                     type="text"
                     name="name"
+                    value={values?.name}
                     onchange={(e: any) => setFieldValue("name", e.target.value)}
                     placeholder="e.g Presidential bonus"
                   />
@@ -100,6 +152,7 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                     label="Ticket description"
                     type="text"
                     name="description"
+                    value={values?.description}
                     onchange={(e: any) =>
                       setFieldValue("description", e.target.value)
                     }
@@ -109,6 +162,7 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                     label="Expiry"
                     type="date"
                     name="expiry"
+                    value={values?.expiry}
                     onchange={(e: any) =>
                       setFieldValue("expiry", e.target.value)
                     }
@@ -118,6 +172,7 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                     label="Cost per person"
                     type="text"
                     name="STring"
+                    value={values?.cost}
                     onchange={(e: any) => setFieldValue("cost", e.target.value)}
                     placeholder="N 2,000"
                   />
@@ -134,8 +189,8 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
                 <br />
                 <div className={styles.pr_btn}>
                   <PrimartButton
-                    load={createTicketLoad}
-                    text="Create ticket"
+                    load={editTicketLoad || createTicketLoad}
+                    text={editTicket?.name ? "Save" : "Create ticket"}
                     active={true}
                     onClick={() => null}
                   />

@@ -123,6 +123,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
               initialValues={initialValues}
               validateOnChange={true}
               onSubmit={(values, { setSubmitting }) => {
+                // Add a new route to the routes state
                 setRoutes((prevRoutes: any) => [
                   ...prevRoutes,
                   {
@@ -130,15 +131,26 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                     time: values?.Time_1,
                   },
                 ])
-                const data = {
-                  train_id: singleTrainState?.train_id,
-                  name: values?.name ? values?.name : singleTrainState?.name,
-                  status: values?.status
-                    ? values?.status
-                    : singleTrainState?.status,
-                  route: routes,
-                }
-                setSingleTrainState(data)
+
+                // Update the singleTrainState with the new routes
+                setSingleTrainState((prevSingleTrainState: any) => {
+                  const updatedSingleTrain = {
+                    ...prevSingleTrainState,
+                    route: [
+                      ...prevSingleTrainState.route,
+                      {
+                        station: values?.Route_1,
+                        time: values?.Time_1,
+                      },
+                    ],
+                  }
+                  return updatedSingleTrain
+                })
+
+                // Rest of your form submission logic
+                // ...
+
+                setSubmitting(false) // Make sure to setSubmitting(false) when done
               }}
             >
               {({
@@ -155,6 +167,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                     label="Train Name"
                     type="text"
                     name="name"
+                    value={values?.name}
                     onchange={(e: any) => setFieldValue("name", e.target.value)}
                     placeholder="Enter Train Name"
                   />
@@ -173,6 +186,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                       label="Route 1"
                       name="Route_1"
                       type="text"
+                      value={values?.Route_1}
                       onchange={(e: any) =>
                         setFieldValue("Route_1", e.target.value)
                       }
@@ -182,6 +196,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                       label="Time 1"
                       name="Time_1"
                       type="time"
+                      value={values?.Time_1}
                       onchange={(e: any) =>
                         setFieldValue("Time_1", e.target.value)
                       }

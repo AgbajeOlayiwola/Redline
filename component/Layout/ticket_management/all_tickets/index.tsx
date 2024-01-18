@@ -5,15 +5,17 @@ import {
   useDeleteTicketMutation,
   useFetchTicketMutation,
 } from "@/redux/api/mutationApi"
+import { setEditTicket } from "@/redux/slices/edit-ticket-slice"
 import { useEffect, useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
+import { useDispatch } from "react-redux"
 import styles from "./styles.module.css"
 const All_tickets = ({ nextPage }: { nextPage: any }) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
   const [showEdit, setShowEdit] = useState(false)
   const [showModal, setShowmodal] = useState(false)
   const [ticketId, setTicketId] = useState()
-
+  const dispatch = useDispatch()
   const handleToggleEdit = (index: any) => {
     setSelectedItemIndex(index)
     setShowEdit((prev) => !prev)
@@ -142,7 +144,13 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
                 <FiMoreVertical onClick={() => handleToggleEdit(index)} />
                 {showEdit && selectedItemIndex === index ? (
                   <div className={styles.editDelet}>
-                    <p>Edit</p>
+                    <p
+                      onClick={() => {
+                        nextPage(), dispatch(setEditTicket(item))
+                      }}
+                    >
+                      Edit
+                    </p>
                     <h6
                       onClick={() => {
                         setShowmodal(true), setTicketId(item?.ticket_id)

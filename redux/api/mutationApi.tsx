@@ -117,10 +117,18 @@ export const mutationApi = createApi({
         body,
       }),
     }),
+    updateOrganisationUser: builder.mutation({
+      query: (body) => ({
+        url: "organization/user-status",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
 export const {
+  useUpdateOrganisationUserMutation,
   useDeletOrganisationUserMutation,
   useUserLoginMutation,
   useCreateTrainMutation,

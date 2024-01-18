@@ -11,13 +11,18 @@ import {
   useDeletOrganisationUserMutation,
   useGetOrganizationUsersMutation,
   useInviteMemberOrganizationMutation,
+  useUpdateOrganisationUserMutation,
 } from "@/redux/api/mutationApi"
+import { clearEditAgent } from "@/redux/slices/edit-agent-slice"
 import { Formik } from "formik"
 import { useEffect, useState } from "react"
 import { GiCancel } from "react-icons/gi"
+import { useDispatch, useSelector } from "react-redux"
 import * as yup from "yup"
 import styles from "./styles.module.css"
 const Agent = () => {
+  const dispatch = useDispatch()
+  const { editAgent }: any = useSelector((store) => store)
   const [showModal, setShowModal] = useState(false)
   const [deletModala, setDeleteModal] = useState(false)
   const [convertedData, setConvertedData] = useState()
@@ -64,6 +69,7 @@ const Agent = () => {
     phone: "",
     role: "",
     password: "",
+    status: "",
   }
 
   const [
@@ -77,6 +83,18 @@ const Agent = () => {
       reset: inviteMemberOrganizationReset,
     },
   ] = useInviteMemberOrganizationMutation()
+  const [
+    updateOrganisationUser,
+    {
+      data: updateOrganisationUserData,
+      isLoading: updateOrganisationUserLoad,
+      isSuccess: updateOrganisationUserSuccess,
+      isError: updateOrganisationUserFalse,
+      error: updateOrganisationUserErr,
+      reset: updateOrganisationUserReset,
+    },
+  ] = useUpdateOrganisationUserMutation()
+
   useEffect(() => {
     if (inviteMemberOrganizationSuccess) {
       setShowModal(false)
@@ -134,6 +152,17 @@ const Agent = () => {
     }
   }, [deletOrganisationUserSuccess])
   useEffect(() => {
+    if (updateOrganisationUserSuccess) {
+      const data = {
+        role: "", //AGENT, ADMIN, SUPPORT
+        page: "",
+        limit: "",
+      }
+      getOrganizationUsers(data)
+      setShowModal(false)
+    }
+  }, [updateOrganisationUserSuccess])
+  useEffect(() => {
     if (getOrganizationUsersSuccess) {
       const convertUserObject = (user: any) => {
         return {
@@ -157,15 +186,20 @@ const Agent = () => {
   }, [getOrganizationUsersSuccess, getOrganizationUsersData])
 
   const data = ["ADMIN", "AGENT", "SUPPORT"]
+  const statusData = ["ACTIVE", "INACTIVE"]
   return (
     <div className={styles.dash_layout}>
       {showModal ? (
         <Modal>
           <Formik
-            validationSchema={initSchema}
+            validationSchema={editAgent?.customer ? null : initSchema}
             initialValues={initialValues}
             validateOnChange={true}
             onSubmit={(values, { setSubmitting }) => {
+              const editAgentData = {
+                user_id: editAgent?.ref,
+                status: values?.role,
+              }
               const data = {
                 invitee_email: values?.email,
                 invitee_name: values?.name,
@@ -173,7 +207,11 @@ const Agent = () => {
                 invitee_phone: values?.phone,
                 invitee_password: values?.password,
               }
-              inviteMemberOrganization(data)
+              if (editAgent?.customer) {
+                updateOrganisationUser(editAgentData)
+              } else {
+                inviteMemberOrganization(data)
+              }
             }}
           >
             {({
@@ -193,67 +231,98 @@ const Agent = () => {
                       <h2>New Agents</h2>
                       <p>Add a new agent to a station</p>
                     </div>
-                    <GiCancel onClick={() => setShowModal((prev) => !prev)} />
-                  </div>
-                  <div className={styles.input_drill}>
-                    <PrimaryInput
-                      label="Agent name"
-                      type="text"
-                      name="agent_name"
-                      onchange={(e: any) =>
-                        setFieldValue("name", e.target.value)
-                      }
-                      placeholder="Enter agent name"
+                    <GiCancel
+                      onClick={() => {
+                        setShowModal((prev) => !prev),
+                          dispatch(clearEditAgent())
+                      }}
                     />
                   </div>
-                  <div className={styles.input_drill}>
-                    <PrimaryInput
-                      label="Agent Email"
-                      type="text"
-                      name="agent_email"
-                      onchange={(e: any) =>
-                        setFieldValue("email", e.target.value)
-                      }
-                      placeholder="Enter agent name"
-                    />
-                  </div>
-                  <div className={styles.input_drill}>
-                    <PrimarySelect
-                      options={data}
-                      label="Select Agent Role"
-                      onchange={(e: any) =>
-                        setFieldValue("role", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className={styles.input_drill}>
-                    <PrimaryInput
-                      label="Agent Password"
-                      type="text"
-                      name="agent_password"
-                      onchange={(e: any) =>
-                        setFieldValue("password", e.target.value)
-                      }
-                      placeholder="Enter agent name"
-                    />
-                  </div>
-                  <div className={styles.input_drill}>
-                    <PrimaryInput
-                      label="Phone Number"
-                      type="number"
-                      name="agent_phone"
-                      onchange={(e: any) =>
-                        setFieldValue("phone", e.target.value)
-                      }
-                      placeholder="Choose a station"
-                    />
-                  </div>
-                  <PrimartButton
-                    load={inviteMemberOrganizationLoad}
-                    text="Assign agent"
-                    active={true}
-                    onClick={() => null}
-                  />
+                  {!editAgent?.customer ? (
+                    <>
+                      <div className={styles.input_drill}>
+                        <PrimaryInput
+                          label="Agent name"
+                          type="text"
+                          name="agent_name"
+                          value={values?.name}
+                          onchange={(e: any) =>
+                            setFieldValue("name", e.target.value)
+                          }
+                          placeholder="Enter agent name"
+                        />
+                      </div>
+                      <div className={styles.input_drill}>
+                        <PrimaryInput
+                          label="Agent Email"
+                          type="text"
+                          name="agent_email"
+                          value={values?.email}
+                          onchange={(e: any) =>
+                            setFieldValue("email", e.target.value)
+                          }
+                          placeholder="Enter agent name"
+                        />
+                      </div>
+                      <div className={styles.input_drill}>
+                        <PrimarySelect
+                          options={data}
+                          label="Select Agent Role"
+                          onchange={(e: any) =>
+                            setFieldValue("role", e.target.value)
+                          }
+                        />
+                      </div>
+                      <div className={styles.input_drill}>
+                        <PrimaryInput
+                          label="Agent Password"
+                          type="text"
+                          name="agent_password"
+                          value={values?.password}
+                          onchange={(e: any) =>
+                            setFieldValue("password", e.target.value)
+                          }
+                          placeholder="Enter agent name"
+                        />
+                      </div>
+                      <div className={styles.input_drill}>
+                        <PrimaryInput
+                          label="Phone Number"
+                          type="number"
+                          value={values?.phone}
+                          name="agent_phone"
+                          onchange={(e: any) =>
+                            setFieldValue("phone", e.target.value)
+                          }
+                          placeholder="Choose a station"
+                        />
+                      </div>
+                      <PrimartButton
+                        load={inviteMemberOrganizationLoad}
+                        text="Assign agent"
+                        active={true}
+                        onClick={() => null}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.input_drill}>
+                        <PrimarySelect
+                          options={statusData}
+                          label="Select Agent Role"
+                          onchange={(e: any) =>
+                            setFieldValue("role", e.target.value)
+                          }
+                        />
+                      </div>
+                      <PrimartButton
+                        load={updateOrganisationUserLoad}
+                        text="Assign agent"
+                        active={true}
+                        onClick={() => null}
+                      />
+                    </>
+                  )}
                 </div>
               </form>
             )}
@@ -289,6 +358,7 @@ const Agent = () => {
             deleteAction={(id: any) => {
               setDeleteModal(true), setAgentId(id)
             }}
+            editModal={() => setShowModal(true)}
             table_head={table_head}
             table_body={convertedData}
             onClick={() => null}
