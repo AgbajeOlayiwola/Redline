@@ -104,6 +104,7 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
         <div>
           <div className={styles.p_btn}>
             <PrimartButton
+              load={null}
               onClick={() => nextPage()}
               text={"New Ticket"}
               active={true}
