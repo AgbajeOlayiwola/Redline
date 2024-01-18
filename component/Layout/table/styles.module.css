@@ -32,6 +32,10 @@
   width: 11.11%;
   overflow: scroll;
 }
+.table_body > div {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 .table_body > div > p {
   color: #4c4d4d;
 
