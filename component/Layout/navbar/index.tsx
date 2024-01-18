@@ -15,7 +15,7 @@ const Navbar = () => {
       active: true,
     },
     {
-      title: "Ticket sales",
+      title: "Trips",
       link: "#",
       active: false,
     },

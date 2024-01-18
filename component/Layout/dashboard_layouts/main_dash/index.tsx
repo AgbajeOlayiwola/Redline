@@ -8,6 +8,7 @@ import { setAllTrain } from "@/redux/slices/allTrainSlice"
 import { setSingleTrain } from "@/redux/slices/singleTrainSlice"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
+import PrimarySelect from "../../primary_select"
 import styles from "./styles.module.css"
 const MainDash = ({ nextPage }: { nextPage: any }) => {
   const [selectedTrain, setSelectedTrain] = useState(null)
@@ -18,15 +19,15 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
   }
   const chartData = [
     {
-      companyName: "Apple",
+      companyName: "Yaba",
       progressPaymentPrice: 10,
     },
     {
-      companyName: "Apple",
+      companyName: "Ikeja",
       progressPaymentPrice: 120,
     },
     {
-      companyName: "Apple",
+      companyName: "Ikotun",
       progressPaymentPrice: 105,
     },
     {
@@ -34,11 +35,11 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       progressPaymentPrice: 80,
     },
     {
-      companyName: "Apple",
+      companyName: "Ikorodu",
       progressPaymentPrice: 150,
     },
     {
-      companyName: "Apple",
+      companyName: "Iayana Ipaja",
       progressPaymentPrice: 30,
     },
   ]
@@ -74,6 +75,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
     dispatch(setSingleTrain(found))
     nextPage()
   }
+  const data = ["Today", "Last 7 days", "Last month", "Last year"]
   return (
     <div>
       <div className={styles.dash_top}>
@@ -150,7 +152,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
         <div className={styles.red_sched}>
           <p>Ticket sales summary</p>
           <div>
-            <OutlineButton text="Edit Schedule" onClick={() => null} />
+            <PrimarySelect label={""} options={data} onchange={() => null} />
           </div>
         </div>
         <VerticalBarChart ChartData={chartData} />
