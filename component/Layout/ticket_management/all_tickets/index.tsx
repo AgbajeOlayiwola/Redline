@@ -135,7 +135,7 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
                 <h1>{item?.name}</h1>
                 <p>{item?.description}</p>
                 <h2>
-                  {item?.costPerPerson}
+                  ₦ {item?.costPerPerson}
                   <span>/Person</span>
                 </h2>
                 <p>{item?.expiryDays}</p>
