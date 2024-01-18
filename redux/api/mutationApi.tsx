@@ -83,7 +83,7 @@ export const mutationApi = createApi({
     }),
     getOrganizationUsers: builder.mutation({
       query: (body) => ({
-        url: "organization/users",
+        url: "organization/fmil-users",
         method: "POST",
         body,
       }),
