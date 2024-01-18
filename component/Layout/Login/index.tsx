@@ -1,11 +1,17 @@
 "use client"
 import PrimartButton from "@/component/Buttons/PrimaryButton"
 import PrimaryInput from "@/component/Inputs/PrimmaryInput"
+import { useUserLoginMutation } from "@/redux/api/mutationApi"
+import { setCookie } from "@/redux/slices/cookieSlice"
+import { setProfile } from "@/redux/slices/profileSlice"
 import { Formik } from "formik"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 import * as yup from "yup"
 import styles from "./styles.module.css"
 const LoginLayout = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const initSchema = yup.object().shape({
     name: yup.string().trim().required("Name is required"),
@@ -16,6 +22,24 @@ const LoginLayout = () => {
     name: "",
     password: "",
   }
+  const [
+    userLogin,
+    {
+      data: userLoginData,
+      isLoading: userLoginLoad,
+      isSuccess: userLoginSuccess,
+      isError: userLoginFalse,
+      error: userLoginErr,
+      reset: userLoginReset,
+    },
+  ] = useUserLoginMutation()
+  useEffect(() => {
+    if (userLoginSuccess) {
+      dispatch(setProfile(userLoginData?.data))
+      dispatch(setCookie(userLoginData?.data?.token))
+      router.push("/admin/dashboard")
+    }
+  }, [userLoginSuccess])
 
   return (
     <>
@@ -28,7 +52,11 @@ const LoginLayout = () => {
         initialValues={initialValues}
         validateOnChange={true}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values)
+          const data = {
+            emailAddress: values?.name,
+            password: values?.password,
+          }
+          userLogin(data)
         }}
       >
         {({
@@ -58,9 +86,10 @@ const LoginLayout = () => {
             />
             {errors ? <p className={styles.error}>{errors?.password}</p> : null}
             <PrimartButton
+              load={userLoginLoad}
               text="Login"
               active={isValid ? true : false}
-              onClick={() => router.push("/admin/dashboard")}
+              onClick={() => null}
             />
           </form>
         )}

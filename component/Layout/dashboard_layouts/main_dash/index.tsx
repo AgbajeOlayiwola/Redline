@@ -1,10 +1,20 @@
 "use client"
 import OutlineButton from "@/component/Buttons/outline_button"
 import Locationsvggreen from "@/component/SVGs/locationsvggreen"
-import Trans_train from "@/component/SVGs/trans_train"
 import { VerticalBarChart } from "@/component/vertical_bar_chart"
+import { useFetchTrainMutation } from "@/redux/api/mutationApi"
+import { setAllTrain } from "@/redux/slices/allTrainSlice"
+import { setSingleTrain } from "@/redux/slices/singleTrainSlice"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import styles from "./styles.module.css"
 const MainDash = ({ nextPage }: { nextPage: any }) => {
+  const [selectedTrain, setSelectedTrain] = useState(null)
+  const dispatch = useDispatch()
+
+  const handleTrainSelect = (trainId: any) => {
+    setSelectedTrain(trainId)
+  }
   const chartData = [
     {
       companyName: "Apple",
@@ -31,60 +41,88 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       progressPaymentPrice: 30,
     },
   ]
-  const location = [
-    { name: "Iyana Ipaja", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Agege Station", time: "4:30" },
-    { name: "Yaba Station", time: "4:30" },
-  ]
-  const trains = [
-    { train: "Train 1", condition: "active" },
-    { train: "Train 2", condition: "inActive" },
-    { train: "Train 3", condition: "inActive" },
-    { train: "Train 4", condition: "inActive" },
-    { train: "Train 5", condition: "inActive" },
-    { train: "Train 6", condition: "inActive" },
-    { train: "Train 7", condition: "inActive" },
-  ]
+
+  const [
+    fetchTrain,
+    {
+      data: fetchTrainData,
+      isLoading: fetchTrainLoad,
+      isSuccess: fetchTrainSuccess,
+      isError: fetchTrainFalse,
+      error: fetchTrainErr,
+      reset: fetchTrainReset,
+    },
+  ] = useFetchTrainMutation()
+
+  useEffect(() => {
+    const data = {
+      status: "",
+    }
+    fetchTrain(data)
+  }, [])
+  useEffect(() => {
+    dispatch(setAllTrain(fetchTrainData?.trains))
+    if (fetchTrainData?.trains.length > 0) {
+      setSelectedTrain(fetchTrainData.trains[0].train_id)
+    }
+  }, [fetchTrainSuccess])
+  const handleEdit = () => {
+    const found = fetchTrainData?.trains?.find(
+      (train: any) => train?.train_id === selectedTrain
+    )
+    dispatch(setSingleTrain(found))
+    nextPage()
+  }
   return (
     <div>
       <div className={styles.dash_top}>
         <div className={styles.red_sched}>
           <p>Redline Schedule</p>
           <div>
-            <OutlineButton text="Edit Schedule" onClick={() => nextPage()} />
+            <OutlineButton text="Edit Schedule" onClick={handleEdit} />
           </div>
         </div>
         <div className={styles.trains}>
-          {trains.map((item, index) => {
+          {fetchTrainData?.trains?.map((item: any, index: number) => {
             return (
               <div
                 key={index}
                 className={
-                  item?.condition === "active"
-                    ? styles.train
-                    : styles.trainInactive
+                  selectedTrain === item?.train_id
+                    ? styles.active
+                    : styles.Inactive
                 }
               >
-                <p>{item?.train}</p>
+                <div
+                  onClick={() => handleTrainSelect(item?.train_id)}
+                  className={
+                    item?.status === "ACTIVE"
+                      ? styles.train
+                      : styles.trainInactive
+                  }
+                >
+                  <p>{item?.name}</p>
+                </div>
               </div>
             )
           })}
         </div>
         <div className={styles.movement}>
-          <div className={styles.loca}>
-            <h1>IPJ</h1>
-            <p>Iyana Ipaja</p>
-          </div>
-          <Trans_train />
-          <div className={styles.loca}>
-            <h1>YAB</h1>
-            <p>Yaba</p>
-          </div>
+          {selectedTrain &&
+            fetchTrainData?.trains
+              ?.find((train: any) => train?.train_id === selectedTrain)
+              .route.map((station: any, index: any, array: any) => (
+                <div className={styles.loca} key={index}>
+                  {index === 0 || index === array.length - 1 ? (
+                    <>
+                      <h1>{station?.station}</h1>
+                      <p>Iyana Ipaja</p>
+                      {/* Uncomment this if you want to include Trans_train for the first and last stations */}
+                      {/* {index === 0 && <Trans_train />} */}
+                    </>
+                  ) : null}
+                </div>
+              ))}
         </div>
         <div className={styles.red_sched}>
           <p>Train Route</p>
@@ -93,16 +131,17 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           </div>
         </div>
         <div className={styles.local}>
-          {location.map((item, index) => {
-            return (
-              <div key={index} className={styles.currentLocation}>
-                <Locationsvggreen />
-                <p>{item?.name}</p>
-                <p>{item?.time}</p>
-                <div className={styles.point}></div>
-              </div>
-            )
-          })}
+          {selectedTrain &&
+            fetchTrainData?.trains
+              ?.find((train: any) => train?.train_id === selectedTrain)
+              .route.map((station: any, index: any) => (
+                <div key={index} className={styles.currentLocation}>
+                  <Locationsvggreen />
+                  <p>{station?.station}</p>
+                  <p>{station?.time}</p>
+                  <div className={styles.point}></div>
+                </div>
+              ))}
         </div>
       </div>
       <div className={styles.dash_top}>

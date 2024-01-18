@@ -88,6 +88,7 @@ const SetPassword = ({ previous }: { previous: any }) => {
               <p className={styles.error}>{errors?.Confirmpassword}</p>
             ) : null}
             <PrimartButton
+              load={null}
               text="Login"
               active={isValid ? true : false}
               onClick={() => previous()}

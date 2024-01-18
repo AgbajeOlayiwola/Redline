@@ -64,3 +64,39 @@
   text-align: left;
   color: #004bff;
 }
+.modalOuter {
+  background: rgba(0, 0, 0, 0.29);
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+.modalInner {
+  padding: 20px 15px;
+  width: 40vw;
+  height: 30vh;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 20px;
+  justify-content: space-around;
+  align-items: center;
+}
+.conundrum {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+  width: 48%;
+  justify-content: space-evenly;
+}
+.conundrum div {
+  width: 50%;
+  width: 68%;
+  text-align: center;
+}

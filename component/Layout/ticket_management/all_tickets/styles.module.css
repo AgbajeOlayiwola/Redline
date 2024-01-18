@@ -92,3 +92,64 @@
   text-align: left;
   color: #0f0f0f;
 }
+.more {
+  position: relative;
+}
+.editDelet {
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  gap: 20px;
+  background: white;
+  right: 11px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.editDelet p {
+  cursor: pointer;
+  margin: 0px;
+}
+.editDelet h6 {
+  color: red;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0px;
+}
+.modalOuter {
+  background: rgba(0, 0, 0, 0.29);
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+.modalInner {
+  padding: 20px 15px;
+  width: 40vw;
+  height: 30vh;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 20px;
+  justify-content: space-around;
+  align-items: center;
+}
+.conundrum {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+  width: 48%;
+  justify-content: space-evenly;
+}
+.conundrum div {
+  width: 50%;
+  width: 68%;
+  text-align: center;
+}

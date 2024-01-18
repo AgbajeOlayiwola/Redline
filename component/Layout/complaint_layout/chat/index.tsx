@@ -29,6 +29,7 @@ const ComplaintChat = ({ previous }: { previous: any }) => {
           </div>
           <div className={styles.send_btn}>
             <PrimartButton
+              load={null}
               onClick={() => null}
               active={true}
               text={<Send_svg />}

@@ -1,14 +1,24 @@
+import { useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
 import styles from "./styles.module.css"
 const Table = ({
   table_head,
   table_body,
   onClick,
+  deleteAction,
 }: {
-  table_head: any
-  table_body: any
-  onClick: any
+  table_head?: any
+  table_body?: any
+  onClick?: any
+  deleteAction?: any
 }) => {
+  const [showAction, setShowAction] = useState(false)
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null)
+  const handleToggleEdit = (index: any) => {
+    setSelectedItemIndex(index)
+    setShowAction((prev) => !prev)
+  }
+
   return (
     <div>
       <div className={styles.table_head}>
@@ -37,16 +47,22 @@ const Table = ({
                   <p>{item?.type}</p>
                 </div>
                 <div>
-                  <p>{item?.Date}</p>
+                  <p>{item?.Date.split("T")[0]}</p>
                 </div>
                 <div>
                   <p>{item?.amount}</p>
                 </div>
                 <div>
-                  <p>{item?.status}</p>
+                  <p>{item?.status.replace("_", " ").toLowerCase()}</p>
                 </div>
-                <div>
-                  <FiMoreVertical />
+                <div className={styles.action}>
+                  <FiMoreVertical onClick={() => handleToggleEdit(index)} />
+                  {showAction && selectedItemIndex === index ? (
+                    <div className={styles.show}>
+                      <p>Edit</p>
+                      <h6 onClick={() => deleteAction(item?.ref)}>Delete</h6>
+                    </div>
+                  ) : null}
                 </div>
               </div>
               <hr className={styles.table_hr} />

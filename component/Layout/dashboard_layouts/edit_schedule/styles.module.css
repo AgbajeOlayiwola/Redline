@@ -77,3 +77,19 @@
   flex-direction: column;
   gap: 32px;
 }
+.editTrainRoute {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+.editForm {
+  width: 50%;
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.editForm p {
+  margin: 0px;
+}

@@ -30,6 +30,7 @@
 }
 .table_body > div {
   width: 11.11%;
+  overflow: scroll;
 }
 .table_body > div > p {
   color: #4c4d4d;
@@ -48,5 +49,33 @@
 }
 .table_hr {
   border-color: #e4e5e52e;
+  margin: 0px;
+}
+.action {
+  position: relative;
+  overflow: unset !important;
+}
+.show {
+  position: absolute;
+  width: 100px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  right: 85px;
+  gap: 20px;
+  background: white;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.show h6 {
+  color: red;
+  cursor: pointer;
+  margin: 0px;
+}
+
+.show p {
+  cursor: pointer;
   margin: 0px;
 }

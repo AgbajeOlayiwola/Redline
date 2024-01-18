@@ -1,12 +1,15 @@
+import LoadingAnimation from "@/component/animations/loadingAnimation"
 import styles from "./styles.module.css"
 const PrimartButton = ({
   text,
   active,
   onClick,
+  load,
 }: {
   text: any
   active: boolean
   onClick: any
+  load: any
 }) => {
   return (
     <button
@@ -14,7 +17,7 @@ const PrimartButton = ({
       disabled={!active ? true : false}
       onClick={onClick}
     >
-      {text}
+      {load ? <LoadingAnimation /> : <>{text}</>}
     </button>
   )
 }

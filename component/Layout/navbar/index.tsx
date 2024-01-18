@@ -1,10 +1,13 @@
 import Logosvg from "@/component/SVGs/logosvg"
 import Image from "next/image"
 import Link from "next/link"
+import { useSelector } from "react-redux"
 import Cover from "../cover"
 import styles from "./styles.module.css"
 
 const Navbar = () => {
+  const { profile }: any = useSelector((store) => store)
+
   const navData = [
     {
       title: "Dashboard",
@@ -49,14 +52,18 @@ const Navbar = () => {
           </div>
           <div className={styles.userSect}>
             <Image
-              src="/images/user_avatar.png"
+              src={
+                profile?.user?.profileImage == ""
+                  ? "/images/user_avatar.png"
+                  : profile?.user?.profileImage
+              }
               width={32}
               height={32}
               alt="user"
             />
             <div>
-              <h1>Temidayo Odugbetan</h1>
-              <p>Super admin</p>
+              <h1>{profile?.user?.fullName}</h1>
+              <p>{profile?.user?.role.replace("_", " ")}</p>
             </div>
           </div>
         </div>

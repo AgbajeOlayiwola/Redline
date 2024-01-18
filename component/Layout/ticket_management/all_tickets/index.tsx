@@ -1,8 +1,24 @@
 import PrimartButton from "@/component/Buttons/PrimaryButton"
+import OutlineButton from "@/component/Buttons/outline_button"
 import CustomDropdown from "@/component/reusable_compoenent/custome_dropdown"
+import {
+  useDeleteTicketMutation,
+  useFetchTicketMutation,
+} from "@/redux/api/mutationApi"
+import { useEffect, useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
 import styles from "./styles.module.css"
 const All_tickets = ({ nextPage }: { nextPage: any }) => {
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showModal, setShowmodal] = useState(false)
+  const [ticketId, setTicketId] = useState()
+
+  const handleToggleEdit = (index: any) => {
+    setSelectedItemIndex(index)
+    setShowEdit((prev) => !prev)
+  }
+
   const options = [
     { label: "Option 1", value: "option1" },
     { label: "Option 2", value: "option2" },
@@ -11,50 +27,47 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
   const handleSelect = (selectedOption: any) => {
     console.log("Selected Option:", selectedOption)
   }
-  const ticket_data = [
+  const [status, setStatus] = useState("ACTIVE")
+  const [
+    fetchTicket,
     {
-      label: "Single trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
+      data: fetchTickettData,
+      isLoading: fetchTicketLoad,
+      isSuccess: fetchTicketSuccess,
+      isError: fetchTicketFalse,
+      error: fetchTicketErr,
+      reset: fetchTicketReset,
     },
+  ] = useFetchTicketMutation()
+  const [
+    deleteTicket,
     {
-      label: "Single trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
+      data: deleteTicketData,
+      isLoading: deleteTicketLoad,
+      isSuccess: deleteTicketSuccess,
+      isError: deleteTicketFalse,
+      error: deleteTicketErr,
+      reset: deleteTicketReset,
     },
-    {
-      label: "Single trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
-    },
-    {
-      label: "Round trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
-    },
-    {
-      label: "Single trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
-    },
-    {
-      label: "Round trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
-    },
-    {
-      label: "Round trip",
-      price: "3500",
-      time: "Expires in 1week",
-      duration: "Covers the whole redline",
-    },
-  ]
+  ] = useDeleteTicketMutation()
+
+  useEffect(() => {
+    const data = {
+      status: "ACTIVE",
+    }
+    fetchTicket(data)
+  }, [])
+  useEffect(() => {
+    if (deleteTicketSuccess) {
+      const data = {
+        status: "ACTIVE",
+      }
+
+      fetchTicket(data)
+      setShowmodal(false)
+    }
+  }, [deleteTicketSuccess])
+
   return (
     <div>
       <div className={styles.ticket_filter}>
@@ -62,10 +75,28 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
           {" "}
           <h1>Ticket management</h1>
           <div className={styles.active_paused}>
-            <div className={styles.active}>
+            <div
+              className={status === "ACTIVE" ? styles.active : styles.paused}
+              onClick={() => {
+                setStatus("ACTIVE")
+                const data = {
+                  status: "ACTIVE",
+                }
+                fetchTicket(data)
+              }}
+            >
               <p>Active</p>
             </div>
-            <div className={styles.paused}>
+            <div
+              className={status != "ACTIVE" ? styles.active : styles.paused}
+              onClick={() => {
+                setStatus("INACTIVE")
+                const data = {
+                  status: "INACTIVE",
+                }
+                fetchTicket(data)
+              }}
+            >
               <p>Paused</p>
             </div>
           </div>
@@ -92,22 +123,59 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
       </div>
       <br />
       <div className={styles.all_trips}>
-        {ticket_data.map((item, index) => {
-          return (
+        {fetchTickettData?.tickets?.length <= 0 ? (
+          <h3>No Tickest Found</h3>
+        ) : (
+          fetchTickettData?.tickets?.map((item: any, index: number) => (
             <div key={index} className={styles.trips}>
               <div className={styles.trips_div}>
-                <h1>{item?.label}</h1>
-                <p>{item?.duration}</p>
+                <h1>{item?.name}</h1>
+                <p>{item?.description}</p>
                 <h2>
-                  {item?.price}
+                  {item?.costPerPerson}
                   <span>/Person</span>
                 </h2>
-                <p>{item?.time}</p>
+                <p>{item?.expiryDays}</p>
               </div>
-              <FiMoreVertical />
+              <div className={styles.more}>
+                <FiMoreVertical onClick={() => handleToggleEdit(index)} />
+                {showEdit && selectedItemIndex === index ? (
+                  <div className={styles.editDelet}>
+                    <p>Edit</p>
+                    <h6
+                      onClick={() => {
+                        setShowmodal(true), setTicketId(item?.ticket_id)
+                      }}
+                    >
+                      Delete
+                    </h6>
+                  </div>
+                ) : null}
+              </div>
             </div>
-          )
-        })}
+          ))
+        )}
+        {showModal ? (
+          <div className={styles.modalOuter}>
+            <div className={styles.modalInner}>
+              <h3>Are you sure</h3>
+              <div className={styles.conundrum}>
+                <PrimartButton
+                  active={true}
+                  onClick={() => deleteTicket({ ticket_id: ticketId })}
+                  load={deleteTicketLoad}
+                  text="delete"
+                />
+                <OutlineButton
+                  onClick={() => setShowmodal(false)}
+                  text="cancl"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          false
+        )}
       </div>
     </div>
   )
