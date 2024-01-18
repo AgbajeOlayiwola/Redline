@@ -12,26 +12,32 @@ const Navbar = () => {
     {
       title: "Dashboard",
       link: "/admin/dashboard",
+      active: true,
     },
     {
       title: "Ticket sales",
-      link: "/admin/ticket-sales",
+      link: "#",
+      active: false,
     },
     {
       title: "Payment",
-      link: "/admin/payment",
+      link: "#",
+      active: false,
     },
     {
       title: "Complaint",
-      link: "/admin/complaint",
+      link: "#",
+      active: false,
     },
     {
       title: "Ticket management",
       link: "/admin/ticket-management",
+      active: true,
     },
     {
       title: "Agents",
       link: "/admin/agents",
+      active: true,
     },
   ]
   return (
@@ -44,7 +50,10 @@ const Navbar = () => {
           <div className={styles.navLinks}>
             {navData?.map((item, index) => {
               return (
-                <p key={index}>
+                <p
+                  key={index}
+                  className={item?.active ? styles.active : styles.inactive}
+                >
                   <Link href={item?.link}> {item?.title}</Link>
                 </p>
               )

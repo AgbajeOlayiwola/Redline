@@ -11,7 +11,17 @@
   justify-content: space-between;
   gap: 48px;
 }
-.navLinks > p > a {
+.inactive > a {
+  color: #a3a3a3;
+  cursor: pointer;
+  /* Desktop/Caption */
+  font-size: 12px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 150% */
+}
+.active > a {
   color: #4c4d4d;
   cursor: pointer;
   /* Desktop/Caption */
