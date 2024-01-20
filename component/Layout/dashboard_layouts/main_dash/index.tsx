@@ -135,9 +135,9 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
         </div>
         <div className={styles.red_sched}>
           <p>Train Route</p>
-          <div>
+          {/* <div>
             <OutlineButton text="Move To Next Station" onClick={() => null} />
-          </div>
+          </div> */}
         </div>
         <div className={styles.local}>
           {fetchTrainLoad ? (

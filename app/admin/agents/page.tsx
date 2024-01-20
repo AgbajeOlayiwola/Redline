@@ -48,9 +48,8 @@ const Agent = () => {
   ]
 
   const options = [
-    { label: "Option 1", value: "option1" },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
+    { label: "Role", value: "Role" },
+    { label: "Status", value: "Status" },
   ]
   const handleSelect = (selectedOption: any) => {
     console.log("Selected Option:", selectedOption)
@@ -169,9 +168,9 @@ const Agent = () => {
         return {
           ref: user.id,
           customer: user.emailAddress,
-          amount: user.phoneNumber,
+          amount: user.role,
           Date: user.createdAt,
-          type: user.role,
+          type: user.phoneNumber,
           status: user.status,
         }
       }
@@ -262,7 +261,7 @@ const Agent = () => {
                           onchange={(e: any) =>
                             setFieldValue("email", e.target.value)
                           }
-                          placeholder="Enter agent name"
+                          placeholder="Enter agent email"
                         />
                       </div>
                       <div className={styles.input_drill}>
@@ -283,7 +282,7 @@ const Agent = () => {
                           onchange={(e: any) =>
                             setFieldValue("password", e.target.value)
                           }
-                          placeholder="Enter agent name"
+                          placeholder="Enter agent password"
                         />
                       </div>
                       <div className={styles.input_drill}>
@@ -295,7 +294,7 @@ const Agent = () => {
                           onchange={(e: any) =>
                             setFieldValue("phone", e.target.value)
                           }
-                          placeholder="Choose a station"
+                          placeholder="Enter agent phone number"
                         />
                       </div>
                       <PrimartButton

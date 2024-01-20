@@ -1,4 +1,5 @@
 "use client"
+import PrimaryInput from "@/component/Inputs/PrimmaryInput"
 import Cover from "@/component/Layout/cover"
 import EachUsrTransactions from "@/component/Layout/payment_layout/user_transactions"
 import AllUsers from "@/component/all_users"
@@ -9,16 +10,29 @@ const Payment = () => {
   const [showModal, setShowModal] = useState(false)
   const [deletModala, setDeleteModal] = useState(false)
   const [customerId, setCustomerId] = useState()
+  const [searchType, setSearchType] = useState("")
+  const [displayType, setDisplayType] = useState("")
   const [page, setPage] = useState(0)
 
-  const options = [
+  const email = [
+    { label: "email", value: "email" },
+    { label: "name", value: "name" },
+  ]
+  const name = [
+    { label: "Option 1", value: "option1" },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+  ]
+  const type = [
     { label: "Option 1", value: "option1" },
     { label: "Option 2", value: "option2" },
     { label: "Option 3", value: "option3" },
   ]
   const handleSelect = (selectedOption: any) => {
-    console.log("Selected Option:", selectedOption)
+    console.log(selectedOption)
+    setDisplayType(selectedOption?.value)
   }
+
   const conditional_component = () => {
     switch (page) {
       case 0:
@@ -40,26 +54,7 @@ const Payment = () => {
   }
   return (
     <div className={styles.dash_layout}>
-      <Cover>
-        {page === 0 ? (
-          <>
-            <div>
-              <h1>Transactions</h1>
-            </div>
-            <div className={styles.filter_div}>
-              <div>
-                <p>Filter: </p>
-                <CustomDropdown
-                  options={options}
-                  onSelect={handleSelect}
-                  placeholder="All"
-                />
-              </div>
-            </div>
-          </>
-        ) : null}
-        {conditional_component()}
-      </Cover>
+      <Cover>{conditional_component()}</Cover>
     </div>
   )
 }
