@@ -1,3 +1,4 @@
+import LoadingAnimation from "@/component/animations/loadingAnimation"
 import { setEditAgentt } from "@/redux/slices/edit-agent-slice"
 import { useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
@@ -10,6 +11,7 @@ const Table = ({
   deleteAction,
   editModal,
   noItemFound,
+  load,
 }: {
   table_head?: any
   table_body?: any
@@ -17,6 +19,7 @@ const Table = ({
   deleteAction?: any
   editModal?: any
   noItemFound?: any
+  load: any
 }) => {
   const dispatch = useDispatch()
   const [showAction, setShowAction] = useState(false)
@@ -40,7 +43,9 @@ const Table = ({
         })}
       </div>
       <div className={styles.table_body_cov}>
-        {noItemFound <= 0 ? (
+        {load ? (
+          <LoadingAnimation />
+        ) : noItemFound <= 0 ? (
           <h3>No Items Found</h3>
         ) : (
           table_body?.map((item: any, index: any) => {

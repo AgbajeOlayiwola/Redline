@@ -1,15 +1,18 @@
-import { Player } from "@lottiefiles/react-lottie-player"
+import Lottie from "react-lottie"
+import * as animationData from "../lotties/loading.json"
 const LoadingAnimation = () => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  }
   return (
     <div>
       {" "}
-      <Player
-        src="../lotties/loading.json"
-        className="player"
-        loop
-        autoplay
-        speed={10}
-      />
+      <Lottie options={defaultOptions} height={100} width={100} />
     </div>
   )
 }

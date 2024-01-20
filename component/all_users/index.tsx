@@ -70,6 +70,7 @@ const AllUsers = ({
         deleteAction={(id: any) => {
           deleteModal(), customerId(id)
         }}
+        load={getUsersLoad}
         editModal={() => ShowModal()}
         table_head={table_head}
         table_body={convertedData}

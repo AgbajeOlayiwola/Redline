@@ -351,19 +351,20 @@ const Agent = () => {
             />
           </div>
         </div>
-        {deletOrganisationUserData?.data >= 0 ? (
-          <h3>No agents found</h3>
-        ) : (
-          <Table
-            deleteAction={(id: any) => {
-              setDeleteModal(true), setAgentId(id)
-            }}
-            editModal={() => setShowModal(true)}
-            table_head={table_head}
-            table_body={convertedData}
-            onClick={() => null}
-          />
-        )}
+
+        <Table
+          deleteAction={(id: any) => {
+            setDeleteModal(true), setAgentId(id)
+          }}
+          editModal={() => setShowModal(true)}
+          table_head={table_head}
+          table_body={convertedData}
+          load={getOrganizationUsersLoad}
+          onClick={() => null}
+          noItemFound={
+            getOrganizationUsersData?.data?.lenght <= 0 ? true : false
+          }
+        />
       </Cover>
       {deletModala ? (
         <div className={styles.modalOuter}>

@@ -69,6 +69,7 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
       <br />
       <Table
         table_head={table_head}
+        load={getUsersTransactionsLoad}
         table_body={convertedData}
         onClick={() => null}
         noItemFound={getUsersTransactionsData?.data?.lenght <= 0 ? true : false}
