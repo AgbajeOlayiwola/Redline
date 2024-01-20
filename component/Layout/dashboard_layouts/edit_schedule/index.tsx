@@ -83,9 +83,9 @@ const EditSchedule = ({ previous }: { previous: any }) => {
     <div>
       <div className={styles.back_save}>
         <Back_svg onClick={() => previous()} />
-        <div className={styles.save_btn} onClick={saveChanges}>
+        <button className={styles.save_btn} onClick={saveChanges}>
           {editTrainLoad ? <LoadingAnimation /> : <p> Save Changes</p>}
-        </div>
+        </button>
       </div>
       <div className={styles.stationDetails}>
         <div>

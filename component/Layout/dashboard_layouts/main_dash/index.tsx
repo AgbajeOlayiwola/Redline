@@ -2,6 +2,7 @@
 import OutlineButton from "@/component/Buttons/outline_button"
 import Locationsvggreen from "@/component/SVGs/locationsvggreen"
 import Trans_train from "@/component/SVGs/trans_train"
+import LoadingAnimation from "@/component/animations/loadingAnimation"
 import { VerticalBarChart } from "@/component/vertical_bar_chart"
 import { useFetchTrainMutation } from "@/redux/api/mutationApi"
 import { setAllTrain } from "@/redux/slices/allTrainSlice"
@@ -111,7 +112,10 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           })}
         </div>
         <div className={styles.movement}>
-          {selectedTrain &&
+          {fetchTrainLoad ? (
+            <LoadingAnimation />
+          ) : (
+            selectedTrain &&
             fetchTrainData?.trains
               ?.find((train: any) => train?.train_id === selectedTrain)
               .route.map((station: any, index: any, array: any) => (
@@ -123,7 +127,8 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
                     </div>
                   ) : null}
                 </div>
-              ))}
+              ))
+          )}
           <div className={styles.trainSvg}>
             <Trans_train />
           </div>
@@ -135,7 +140,10 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           </div>
         </div>
         <div className={styles.local}>
-          {selectedTrain &&
+          {fetchTrainLoad ? (
+            <LoadingAnimation />
+          ) : (
+            selectedTrain &&
             fetchTrainData?.trains
               ?.find((train: any) => train?.train_id === selectedTrain)
               .route.map((station: any, index: any) => (
@@ -145,7 +153,8 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
                   <p>{station?.time}</p>
                   <div className={styles.point}></div>
                 </div>
-              ))}
+              ))
+          )}
         </div>
       </div>
       <div className={styles.dash_top}>
