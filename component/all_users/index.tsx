@@ -94,6 +94,7 @@ const AllUsers = ({
       console.log(filteredData)
     }
   }, [getUsersSuccess, searchType, getUsersData])
+  console.log(getUsersData)
   return (
     <div>
       {page === 0 ? (
@@ -135,6 +136,7 @@ const AllUsers = ({
         load={getUsersLoad}
         editModal={() => ShowModal()}
         table_head={table_head}
+        noItemFound={getUsersData?.length === 0 ? true : false}
         table_body={convertedData}
         onClick={(id: any) => openNext(id)}
       />

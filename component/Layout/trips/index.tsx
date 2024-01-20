@@ -73,7 +73,7 @@ const EachUsrTrips = ({ id, previous }: { id: any; previous: any }) => {
         table_body={convertedData}
         onClick={() => null}
         load={getUsersTripsLoad}
-        noItemFound={getUsersTripsData?.trips?.lenght <= 0 ? true : false}
+        noItemFound={getUsersTripsData?.trips?.length <= 0 ? true : false}
       />
     </div>
   )

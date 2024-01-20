@@ -56,6 +56,7 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
       console.log(convertedData)
     }
   }, [getUsersTransactionsSuccess, getUsersTransactionsData])
+  console.log(getUsersTransactionsData)
   return (
     <div className={styles.main}>
       <div className={styles.back_save}>
@@ -72,7 +73,7 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
         load={getUsersTransactionsLoad}
         table_body={convertedData}
         onClick={() => null}
-        noItemFound={getUsersTransactionsData?.data?.lenght <= 0 ? true : false}
+        noItemFound={getUsersTransactionsData?.data?.length <= 0 ? true : false}
       />
     </div>
   )
