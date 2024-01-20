@@ -2,7 +2,6 @@
 import Cover from "@/component/Layout/cover"
 import EachUsrTrips from "@/component/Layout/trips"
 import AllUsers from "@/component/all_users"
-import CustomDropdown from "@/component/reusable_compoenent/custome_dropdown"
 import { useState } from "react"
 import styles from "./styles.module.css"
 const Payment = () => {
@@ -27,6 +26,7 @@ const Payment = () => {
             openNext={(id: any) => {
               setCustomerId(id), setPage(1)
             }}
+            label="Trips"
             deleteModal={null}
             customerId={null}
             ShowModal={null}
@@ -38,26 +38,7 @@ const Payment = () => {
   }
   return (
     <div className={styles.dash_layout}>
-      <Cover>
-        {page === 0 ? (
-          <>
-            <div>
-              <h1>Trips</h1>
-            </div>
-            <div className={styles.filter_div}>
-              <div>
-                <p>Filter: </p>
-                <CustomDropdown
-                  options={options}
-                  onSelect={handleSelect}
-                  placeholder="All"
-                />
-              </div>
-            </div>
-          </>
-        ) : null}
-        {conditional_component()}
-      </Cover>
+      <Cover>{conditional_component()}</Cover>
     </div>
   )
 }

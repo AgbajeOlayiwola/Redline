@@ -10,11 +10,13 @@ const AllUsers = ({
   deleteModal,
   customerId,
   ShowModal,
+  label,
 }: {
   openNext: any
   deleteModal: any
   customerId: any
   ShowModal: any
+  label: string
 }) => {
   const [convertedData, setConvertedData] = useState()
   const [showModal, setShowModal] = useState(false)
@@ -97,7 +99,7 @@ const AllUsers = ({
       {page === 0 ? (
         <>
           <div>
-            <h1>Transactions</h1>
+            <h1>{label}</h1>
           </div>
           <div className={styles.filter_div}>
             <div>
