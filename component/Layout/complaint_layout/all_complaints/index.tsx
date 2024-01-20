@@ -85,6 +85,7 @@ const AllComplaints = ({ nextPage }: { nextPage: any }) => {
         </div>
       </div>
       <Table
+        load={null}
         table_head={table_head}
         table_body={table_body}
         onClick={() => nextPage()}
