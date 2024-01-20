@@ -21,10 +21,10 @@ const EachUsrTrips = ({ id, previous }: { id: any; previous: any }) => {
   const table_head = [
     { text: "Refference ID" },
     { text: "Customer" },
+    { text: "Status" },
     { text: "Transaction date" },
     { text: "Amount" },
-    { text: "Status" },
-    { text: "Cost" },
+    { text: "Train" },
     { text: "Actions" },
   ]
   useEffect(() => {
@@ -39,12 +39,12 @@ const EachUsrTrips = ({ id, previous }: { id: any; previous: any }) => {
     if (getUsersTripsSuccess) {
       const convertUserObject = (user: any) => {
         return {
-          ref: user.id,
-          customer: user.emailAddress,
-          amount: user.phoneNumber,
+          ref: user.ticket_id,
+          customer: user.traveller.fullName,
+          amount: user.total,
           Date: user.createdAt,
-          type: user.role,
-          status: user.fullName,
+          type: user.status,
+          status: user.train.name,
         }
       }
 

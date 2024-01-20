@@ -41,6 +41,7 @@ const Payment = () => {
             openNext={(id: any) => {
               setCustomerId(id), setPage(1)
             }}
+            label="Transactions"
             deleteModal={null}
             customerId={null}
             ShowModal={null}
