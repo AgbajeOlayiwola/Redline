@@ -17,15 +17,16 @@ const Navbar = () => {
       active: true,
     },
     {
-      title: "Trips",
-      link: "#",
-      active: false,
+      title: "Transactions",
+      link: "/admin/transactions",
+      active: true,
     },
     {
-      title: "Payment",
-      link: "#",
-      active: false,
+      title: "Trips",
+      link: "/admin/trips",
+      active: true,
     },
+
     {
       title: "Complaint",
       link: "#",

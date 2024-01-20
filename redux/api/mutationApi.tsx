@@ -124,10 +124,34 @@ export const mutationApi = createApi({
         body,
       }),
     }),
+    getUsers: builder.mutation({
+      query: (body) => ({
+        url: "organization/users",
+        method: "POST",
+        body,
+      }),
+    }),
+    getUsersTransactions: builder.mutation({
+      query: (body) => ({
+        url: "organization/user/transactions",
+        method: "POST",
+        body,
+      }),
+    }),
+    getUsersTrips: builder.mutation({
+      query: (body) => ({
+        url: "organization/user/trips",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
 export const {
+  useGetUsersTransactionsMutation,
+  useGetUsersTripsMutation,
+  useGetUsersMutation,
   useUpdateOrganisationUserMutation,
   useDeletOrganisationUserMutation,
   useUserLoginMutation,
