@@ -45,7 +45,7 @@ const Table = ({
       <div className={styles.table_body_cov}>
         {load ? (
           <LoadingAnimation />
-        ) : noItemFound <= 0 ? (
+        ) : noItemFound ? (
           <h3>No Items Found</h3>
         ) : (
           table_body?.map((item: any, index: any) => {

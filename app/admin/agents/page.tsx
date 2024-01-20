@@ -161,6 +161,7 @@ const Agent = () => {
       getOrganizationUsers(data)
       setShowModal(false)
     }
+    console.log(getOrganizationUsersData)
   }, [updateOrganisationUserSuccess])
   useEffect(() => {
     if (getOrganizationUsersSuccess) {
@@ -358,12 +359,10 @@ const Agent = () => {
           }}
           editModal={() => setShowModal(true)}
           table_head={table_head}
-          table_body={convertedData}
           load={getOrganizationUsersLoad}
+          table_body={convertedData}
           onClick={() => null}
-          noItemFound={
-            getOrganizationUsersData?.data?.lenght <= 0 ? true : false
-          }
+          noItemFound={getOrganizationUsersData?.length <= 0 ? true : false}
         />
       </Cover>
       {deletModala ? (
