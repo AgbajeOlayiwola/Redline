@@ -1,5 +1,6 @@
 import LoadingAnimation from "@/component/animations/loadingAnimation"
 import { setEditAgentt } from "@/redux/slices/edit-agent-slice"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
 import { useDispatch } from "react-redux"
@@ -24,6 +25,8 @@ const Table = ({
   const dispatch = useDispatch()
   const [showAction, setShowAction] = useState(false)
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
+
+  const navigation = usePathname()
   const handleToggleEdit = (index: any) => {
     setSelectedItemIndex(index)
     setShowAction((prev) => !prev)
@@ -51,11 +54,7 @@ const Table = ({
           table_body?.map((item: any, index: any) => {
             return (
               <>
-                <div
-                  key={index}
-                  className={styles.table_body}
-                  onClick={() => onClick(item?.ref)}
-                >
+                <div key={index} className={styles.table_body}>
                   <div>
                     <p>{item?.ref}</p>
                   </div>
@@ -78,6 +77,9 @@ const Table = ({
                     <FiMoreVertical onClick={() => handleToggleEdit(index)} />
                     {showAction && selectedItemIndex === index ? (
                       <div className={styles.show}>
+                        {navigation == "/admin/agents" ? null : (
+                          <p onClick={() => onClick(item?.ref)}>View Details</p>
+                        )}
                         <p
                           onClick={() => {
                             dispatch(setEditAgentt(item)), editModal()

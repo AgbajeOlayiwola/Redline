@@ -20,6 +20,10 @@
 .ticket_filter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.newtick {
+  width: 24%;
 }
 .active_paused {
   display: flex;

@@ -25,7 +25,10 @@ const Agent = () => {
   const { editAgent }: any = useSelector((store) => store)
   const [showModal, setShowModal] = useState(false)
   const [deletModala, setDeleteModal] = useState(false)
-  const [convertedData, setConvertedData] = useState()
+  const [convertedData, setConvertedData] = useState<any[]>([])
+  const [searchType, setSearchType] = useState("")
+  const [displayType, setDisplayType] = useState("")
+  const [roles, setRoles] = useState("")
   const [agentId, setAgentId] = useState()
   const table_head = [
     { text: "Id" },
@@ -51,7 +54,22 @@ const Agent = () => {
     { label: "Role", value: "Role" },
     { label: "Status", value: "Status" },
   ]
+  const rolesData = [
+    { label: "Admin", value: "ADMIN" },
+    { label: "Agent", value: "AGENT" },
+    { label: "Support", value: "SUPPORT" },
+  ]
+  const statusDatas = [{ label: "Pending invite", value: "pending inviteDMIN" }]
   const handleSelect = (selectedOption: any) => {
+    setDisplayType(selectedOption?.value)
+    console.log("Selected Option:", selectedOption)
+  }
+  const handleSelectRole = (selectedOption: any) => {
+    setRoles(selectedOption?.value)
+    console.log("Selected Option:", selectedOption)
+  }
+  const handleSelectStatus = (selectedOption: any) => {
+    setRoles(selectedOption?.value)
     console.log("Selected Option:", selectedOption)
   }
   const initSchema = yup.object().shape({
@@ -174,7 +192,6 @@ const Agent = () => {
           status: user.status,
         }
       }
-
       // Assuming getOrganizationUsersData?.data is an array
       const convertedData = getOrganizationUsersData?.data.map((user: any) =>
         convertUserObject(user)
@@ -182,8 +199,19 @@ const Agent = () => {
 
       setConvertedData(convertedData)
       console.log(convertedData)
+      // Filter the data based on the searchType
+      const filteredData = convertedData?.filter((user: any) =>
+        Object.values(user).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(roles.toLowerCase())
+        )
+      )
+
+      setConvertedData(filteredData || [])
+      console.log(filteredData)
     }
-  }, [getOrganizationUsersSuccess, getOrganizationUsersData])
+  }, [getOrganizationUsersSuccess, roles, getOrganizationUsersData])
 
   const data = ["ADMIN", "AGENT", "SUPPORT"]
   const statusData = ["ACTIVE", "INACTIVE"]
@@ -342,14 +370,32 @@ const Agent = () => {
           </div>
         </div>
         <div className={styles.filter_div}>
-          <div>
-            <p>Filter: </p>
-            <CustomDropdown
-              options={options}
-              onSelect={handleSelect}
-              placeholder="All"
-            />
-          </div>
+          <>
+            <div className={styles.filter_div}>
+              <div>
+                <p>Filter: </p>
+
+                <CustomDropdown
+                  options={options}
+                  onSelect={handleSelect}
+                  placeholder="All"
+                />
+                {displayType === "Role" ? (
+                  <CustomDropdown
+                    options={rolesData}
+                    onSelect={handleSelectRole}
+                    placeholder="All"
+                  />
+                ) : displayType === "Status" ? (
+                  <CustomDropdown
+                    options={statusDatas}
+                    onSelect={handleSelectStatus}
+                    placeholder="All"
+                  />
+                ) : null}
+              </div>
+            </div>
+          </>
         </div>
 
         <Table
@@ -361,7 +407,7 @@ const Agent = () => {
           load={getOrganizationUsersLoad}
           table_body={convertedData}
           onClick={() => null}
-          noItemFound={getOrganizationUsersData?.length <= 0 ? true : false}
+          noItemFound={convertedData?.length <= 0 ? true : false}
         />
       </Cover>
       {deletModala ? (

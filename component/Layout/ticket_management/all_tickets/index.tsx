@@ -1,6 +1,5 @@
 import PrimartButton from "@/component/Buttons/PrimaryButton"
 import OutlineButton from "@/component/Buttons/outline_button"
-import CustomDropdown from "@/component/reusable_compoenent/custome_dropdown"
 import {
   useDeleteTicketMutation,
   useFetchTicketMutation,
@@ -103,7 +102,7 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
             </div>
           </div>
         </div>
-        <div>
+        <div className={styles.newtick}>
           <div className={styles.p_btn}>
             <PrimartButton
               load={null}
@@ -111,16 +110,6 @@ const All_tickets = ({ nextPage }: { nextPage: any }) => {
               text={"New Ticket"}
               active={true}
             />
-          </div>
-          <div className={styles.filter_div}>
-            <div>
-              <p>Filter: </p>
-              <CustomDropdown
-                options={options}
-                onSelect={handleSelect}
-                placeholder="All"
-              />
-            </div>
           </div>
         </div>
       </div>
