@@ -19,11 +19,11 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
   ] = useGetUsersTransactionsMutation()
   const table_head = [
     { text: "Refference ID" },
-    { text: "Customer" },
-    { text: "Transaction date" },
+    { text: "Description" },
+    { text: "Transaction Ref" },
+    { text: "Date" },
     { text: "Amount" },
     { text: "Status" },
-    { text: "Cost" },
     { text: "Actions" },
   ]
   useEffect(() => {
@@ -38,12 +38,12 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
     if (getUsersTransactionsSuccess) {
       const convertUserObject = (user: any) => {
         return {
-          ref: user.id,
-          customer: user.emailAddress,
-          amount: user.phoneNumber,
+          ref: user.transaction_id,
+          customer: user.description,
+          amount: user.amount,
           Date: user.createdAt,
-          type: user.role,
-          status: user.fullName,
+          type: user.transactionReference,
+          status: user.status,
         }
       }
 
