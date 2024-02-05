@@ -33,7 +33,7 @@ const Table = ({
   }
 
   return (
-    <div>
+    <div className={styles.tableMain}>
       <div className={styles.table_head}>
         {table_head?.map((item: any, index: any) => {
           return (

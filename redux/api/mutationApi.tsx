@@ -145,10 +145,42 @@ export const mutationApi = createApi({
         body,
       }),
     }),
+    fetchComplaints: builder.mutation({
+      query: (body) => ({
+        url: "organization/fetch-complaints",
+        method: "POST",
+        body,
+      }),
+    }),
+    fetchSingleComplaints: builder.mutation({
+      query: (body) => ({
+        url: "organization/fetch-complaints/single",
+        method: "POST",
+        body,
+      }),
+    }),
+    replyComplaints: builder.mutation({
+      query: (body) => ({
+        url: "organization/reply-complaints",
+        method: "POST",
+        body,
+      }),
+    }),
+    markComplaints: builder.mutation({
+      query: (body) => ({
+        url: "organization/mark-complaint",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
 export const {
+  useFetchComplaintsMutation,
+  useFetchSingleComplaintsMutation,
+  useReplyComplaintsMutation,
+  useMarkComplaintsMutation,
   useGetUsersTransactionsMutation,
   useGetUsersTripsMutation,
   useGetUsersMutation,

@@ -25,3 +25,13 @@
 .add_agent_btn {
   width: 10%;
 }
+.complaint_flex {
+  display: flex;
+  gap: 10px;
+}
+.complaint_flex > .tableMain {
+  width: 70%;
+}
+.complaint_flex > .tableMain > div > p {
+  font-size: 12px !important;
+}

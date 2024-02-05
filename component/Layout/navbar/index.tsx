@@ -29,8 +29,8 @@ const Navbar = () => {
 
     {
       title: "Complaint",
-      link: "#",
-      active: false,
+      link: "/admin/complaint",
+      active: true,
     },
     {
       title: "Ticket management",

@@ -29,7 +29,7 @@ const Edit_tickets = ({ previous }: { previous: any }) => {
     description: editTicket?.description ? editTicket?.description : "",
     cost: editTicket?.costPerPerson ? editTicket?.costPerPerson : "",
     expiry: editTicket?.expiryDays ? editTicket?.expiryDays : "",
-    status: editTicket?.status ? editTicket?.status : "",
+    status: editTicket?.status ? editTicket?.status : "ACTIVE",
   }
 
   const [

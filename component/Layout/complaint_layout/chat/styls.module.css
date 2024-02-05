@@ -20,6 +20,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.chatTop div:nth-child(2) {
+  width: 32%;
+}
 .chatTopP {
   font-size: 14px;
   font-weight: 500;
@@ -48,7 +51,7 @@
   gap: 10px;
   position: absolute;
   bottom: 22px;
-  width: 95%;
+  width: 89%;
   justify-content: space-between;
 }
 .input_div {
@@ -69,4 +72,38 @@
 .input_div > svg {
   position: absolute;
   left: 12px;
+}
+.adminMessage {
+  display: flex;
+  justify-content: flex-end;
+}
+.adminMessage p {
+  padding: 4px 8px;
+  background: rgb(121, 121, 241);
+  border-bottom-right-radius: 0px;
+  border-radius: 8px;
+  color: white;
+  width: fit-content;
+}
+.userMessage p {
+  padding: 4px 8px;
+  background: rgb(212, 212, 237);
+  width: fit-content;
+  border-bottom-left-radius: 0px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: black;
+}
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 70vh;
+  background: white;
+  border-radius: 20px;
+}
+.empty svg {
+  font-size: 100px;
+  color: #696a6c;
 }
