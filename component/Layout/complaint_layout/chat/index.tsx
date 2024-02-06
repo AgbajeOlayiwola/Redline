@@ -70,7 +70,7 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
     const data = {
       userID: chat?.userDetails?.id,
       complaintId: chat?.id,
-      newStatus: "Resolved",
+      newStatus: "CLOSED",
     }
 
     markComplaints(data)
