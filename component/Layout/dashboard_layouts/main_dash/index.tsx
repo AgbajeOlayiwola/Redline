@@ -20,28 +20,36 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
   }
   const chartData = [
     {
-      companyName: "Yaba",
+      companyName: "Oyingbo",
       progressPaymentPrice: 10,
     },
     {
-      companyName: "Ikeja",
+      companyName: "Yaba",
       progressPaymentPrice: 120,
     },
     {
-      companyName: "Ikotun",
+      companyName: "Mushin",
       progressPaymentPrice: 105,
     },
     {
-      companyName: "Apple",
+      companyName: "Oshodi",
       progressPaymentPrice: 80,
     },
     {
-      companyName: "Ikorodu",
+      companyName: "Ikeja",
       progressPaymentPrice: 150,
     },
     {
-      companyName: "Iayana Ipaja",
+      companyName: "Agege",
       progressPaymentPrice: 30,
+    },
+    {
+      companyName: "Iju",
+      progressPaymentPrice: 40,
+    },
+    {
+      companyName: "Agbado",
+      progressPaymentPrice: 15,
     },
   ]
 
