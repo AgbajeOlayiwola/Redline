@@ -30,13 +30,12 @@ const EditSchedule = ({ previous }: { previous: any }) => {
   ] = useEditTrainMutation()
   console.log(singleTrain)
   const initSchema = yup.object().shape({
-    name: yup.string().trim().required("Name is required"),
     Route_1: yup.string().required("Please enter your first route"),
     Time_1: yup.string().required("Please enter your first route"),
   })
 
   const initialValues = {
-    name: "",
+    name: singleTrainState?.name,
     Route_1: "",
     Time_1: "",
     status: "",
@@ -136,6 +135,8 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                 setSingleTrainState((prevSingleTrainState: any) => {
                   const updatedSingleTrain = {
                     ...prevSingleTrainState,
+                    name: values.name,
+                    status: values?.status,
                     route: [
                       ...prevSingleTrainState.route,
                       {
@@ -171,9 +172,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
                     onchange={(e: any) => setFieldValue("name", e.target.value)}
                     placeholder="Enter Train Name"
                   />
-                  {errors ? (
-                    <p className={styles.error}>{errors?.name}</p>
-                  ) : null}
+
                   <PrimarySelect
                     options={data}
                     label="Select Train Status"
