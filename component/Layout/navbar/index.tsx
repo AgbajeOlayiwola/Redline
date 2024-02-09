@@ -68,16 +68,18 @@ const Navbar = () => {
             })}
           </div>
           <div className={styles.userSect}>
-            <Image
-              src={
-                profile?.user?.profileImage == ""
-                  ? "/images/user_avatar.png"
-                  : profile?.user?.profileImage
-              }
-              width={32}
-              height={32}
-              alt="user"
-            />
+            <Link href="/admin/profile">
+              <Image
+                src={
+                  profile?.user?.profileImage == ""
+                    ? "/images/user_avatar.png"
+                    : profile?.user?.profileImage
+                }
+                width={32}
+                height={32}
+                alt="user"
+              />
+            </Link>
             <div>
               <h1>{profile?.user?.fullName}</h1>
               <p>{profile?.user?.role.replace("_", " ")}</p>

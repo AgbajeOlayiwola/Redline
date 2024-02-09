@@ -1,0 +1,74 @@
+.dash_layout {
+  background: #f9fafb;
+  height: 100vh;
+  padding-bottom: 8%;
+  padding-top: 50px;
+}
+.filter_div {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.filter_div > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.filter_div > div > p {
+  //styleName: Desktop/Caption;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.ticket_filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.newtick {
+  width: 24%;
+}
+.active_paused {
+  display: flex;
+  gap: 30px;
+}
+.active {
+  cursor: pointer;
+  padding: 8px 16px 8px 16px;
+  border-radius: 100px;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  transition: all ease-in-out 0.6s;
+}
+.active p {
+  cursor: pointer;
+  color: white;
+  margin: 0px;
+}
+.paused {
+  background: none;
+  cursor: pointer;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  transition: all ease-in-out 0.6s;
+}
+.paused p {
+  color: #4c4d4d;
+}
+.back_g {
+  background-color: #fff;
+  margin-top: 40px;
+  padding: 30px;
+  width: 100%;
+}
+.back_g > div > h1 {
+  margin: 0px;
+}
+.form {
+  margin-top: 30px;
+}

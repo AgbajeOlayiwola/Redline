@@ -1,0 +1,15 @@
+.name {
+  display: flex;
+  gap: 50px;
+}
+.form {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+.btn {
+  width: 30%;
+}
+.name > div {
+  width: 90%;
+}
