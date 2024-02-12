@@ -173,10 +173,18 @@ export const mutationApi = createApi({
         body,
       }),
     }),
+    changeAgentPassword: builder.mutation({
+      query: (body) => ({
+        url: "users/change-password",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
 export const {
+  useChangeAgentPasswordMutation,
   useFetchComplaintsMutation,
   useFetchSingleComplaintsMutation,
   useReplyComplaintsMutation,

@@ -13,3 +13,7 @@
 .name > div {
   width: 90%;
 }
+.error {
+  color: red;
+  font-size: 12px;
+}
