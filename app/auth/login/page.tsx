@@ -49,7 +49,6 @@ const Login = () => {
           <BrideSvg />
           <BrideSvg />
         </div>
-        d
       </div>
     </div>
   )

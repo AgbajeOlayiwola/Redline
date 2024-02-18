@@ -168,3 +168,19 @@
   width: 68%;
   text-align: center;
 }
+
+@media screen and (max-width: 900px) {
+  .all_trips {
+    display: block;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 5%;
+    grid-row-gap: 30px;
+  }
+  .ticket_filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 26px;
+  }
+}

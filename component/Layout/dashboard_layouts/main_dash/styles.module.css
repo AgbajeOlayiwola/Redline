@@ -127,3 +127,34 @@
   position: absolute;
   left: 35vw;
 }
+@media screen and (max-width: 900px) {
+  .red_sched {
+    display: block;
+  }
+  .trains {
+    display: flex;
+    overflow: scroll;
+    gap: 15px;
+    align-items: center;
+  }
+  .movement {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .trainSvg {
+    position: absolute;
+    left: 11vw;
+    top: 20vh;
+  }
+  .local {
+    display: flex;
+    gap: 27px;
+    justify-content: space-between;
+    align-items: center;
+    overflow: scroll;
+  }
+}

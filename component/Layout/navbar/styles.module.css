@@ -65,3 +65,21 @@
   border-bottom: none;
   transition: all ease-in-out 0.5s;
 }
+.MobilenavLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.mobileMenu {
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 900px) {
+  .navCov {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}

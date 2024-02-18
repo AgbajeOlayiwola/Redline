@@ -16,3 +16,12 @@
   border-radius: 24px;
   width: 35%;
 }
+
+@media screen and (max-width: 900px) {
+  .inner {
+    background: white;
+    padding: 24px;
+    border-radius: 24px;
+    width: 79%;
+  }
+}

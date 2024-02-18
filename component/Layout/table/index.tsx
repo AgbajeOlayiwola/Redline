@@ -1,7 +1,7 @@
 import LoadingAnimation from "@/component/animations/loadingAnimation"
 import { setEditAgentt } from "@/redux/slices/edit-agent-slice"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FiMoreVertical } from "react-icons/fi"
 import { useDispatch } from "react-redux"
 import styles from "./styles.module.css"
@@ -31,20 +31,35 @@ const Table = ({
     setSelectedItemIndex(index)
     setShowAction((prev) => !prev)
   }
+  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(0)
+  const handleWindowResize = () => {
+    setWidth(window.innerWidth)
+    setHeight(window.innerHeight)
+  }
+  useEffect(() => {
+    setWidth(window.innerWidth)
+    setHeight(window.innerHeight)
+    handleWindowResize()
+    window.addEventListener("resize", handleWindowResize)
+    return () => window.removeEventListener("resize", handleWindowResize)
+  }, [width])
 
   return (
     <div className={styles.tableMain}>
-      <div className={styles.table_head}>
-        {table_head?.map((item: any, index: any) => {
-          return (
-            <>
-              <div key={index}>
-                <p>{item?.text}</p>
-              </div>
-            </>
-          )
-        })}
-      </div>
+      {width > 900 ? (
+        <div className={styles.table_head}>
+          {table_head?.map((item: any, index: any) => {
+            return (
+              <>
+                <div key={index}>
+                  <p>{item?.text}</p>
+                </div>
+              </>
+            )
+          })}
+        </div>
+      ) : null}
       <div className={styles.table_body_cov}>
         {load ? (
           <LoadingAnimation />
@@ -54,44 +69,80 @@ const Table = ({
           table_body?.map((item: any, index: any) => {
             return (
               <>
-                <div key={index} className={styles.table_body}>
-                  <div>
-                    <p>{item?.ref}</p>
+                {width > 900 ? (
+                  <div key={index} className={styles.table_body}>
+                    <div>
+                      <p>{item?.ref}</p>
+                    </div>
+                    <div>
+                      <p>{item?.customer}</p>
+                    </div>
+                    <div>
+                      <p>{item?.type}</p>
+                    </div>
+                    <div>
+                      <p>{item?.Date.split("T")[0]}</p>
+                    </div>
+                    <div>
+                      <p>{item?.amount}</p>
+                    </div>
+                    <div>
+                      <p>{item?.status?.replace("_", " ").toLowerCase()}</p>
+                    </div>
+                    <div className={styles.action}>
+                      <FiMoreVertical onClick={() => handleToggleEdit(index)} />
+                      {showAction && selectedItemIndex === index ? (
+                        <div className={styles.show}>
+                          {navigation == "/admin/agents" ? null : (
+                            <p onClick={() => onClick(item?.ref)}>
+                              View Details
+                            </p>
+                          )}
+                          <p
+                            onClick={() => {
+                              dispatch(setEditAgentt(item)), editModal()
+                            }}
+                          >
+                            Edit
+                          </p>
+                          <h6 onClick={() => deleteAction(item?.ref)}>
+                            Delete
+                          </h6>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
-                  <div>
-                    <p>{item?.customer}</p>
+                ) : (
+                  <div key={index} className={styles.table_body}>
+                    <div>
+                      <p>{item?.customer}</p>
+                      <p>{item?.amount}</p>
+                    </div>
+                    <div>
+                      <p>{item?.customer}</p>
+                      <FiMoreVertical onClick={() => handleToggleEdit(index)} />
+                      {showAction && selectedItemIndex === index ? (
+                        <div className={styles.show}>
+                          {navigation == "/admin/agents" ? null : (
+                            <p onClick={() => onClick(item?.ref)}>
+                              View Details
+                            </p>
+                          )}
+                          <p
+                            onClick={() => {
+                              dispatch(setEditAgentt(item)), editModal()
+                            }}
+                          >
+                            Edit
+                          </p>
+                          <h6 onClick={() => deleteAction(item?.ref)}>
+                            Delete
+                          </h6>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
-                  <div>
-                    <p>{item?.type}</p>
-                  </div>
-                  <div>
-                    <p>{item?.Date.split("T")[0]}</p>
-                  </div>
-                  <div>
-                    <p>{item?.amount}</p>
-                  </div>
-                  <div>
-                    <p>{item?.status?.replace("_", " ").toLowerCase()}</p>
-                  </div>
-                  <div className={styles.action}>
-                    <FiMoreVertical onClick={() => handleToggleEdit(index)} />
-                    {showAction && selectedItemIndex === index ? (
-                      <div className={styles.show}>
-                        {navigation == "/admin/agents" ? null : (
-                          <p onClick={() => onClick(item?.ref)}>View Details</p>
-                        )}
-                        <p
-                          onClick={() => {
-                            dispatch(setEditAgentt(item)), editModal()
-                          }}
-                        >
-                          Edit
-                        </p>
-                        <h6 onClick={() => deleteAction(item?.ref)}>Delete</h6>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
+                )}
                 <hr className={styles.table_hr} />
               </>
             )

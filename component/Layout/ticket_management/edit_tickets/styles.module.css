@@ -46,3 +46,14 @@
   margin: 0px;
   color: #0f0f0f;
 }
+
+@media screen and (max-width: 900px) {
+  .p_input {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    /* grid-gap: 3%; */
+    /* gap: 3%; */
+    grid-row-gap: 35px;
+  }
+}

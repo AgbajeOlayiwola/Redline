@@ -38,7 +38,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
     name: singleTrainState?.name,
     Route_1: "",
     Time_1: "",
-    status: "",
+    status: "ACTIVE",
   }
 
   const [routes, setRoutes] = useState(singleTrain?.route || [])
@@ -122,11 +122,10 @@ const EditSchedule = ({ previous }: { previous: any }) => {
               initialValues={initialValues}
               validateOnChange={true}
               onSubmit={(values, { setSubmitting }) => {
-                // Add a new route to the routes state
                 setRoutes((prevRoutes: any) => [
                   ...prevRoutes,
                   {
-                    station: values?.Route_1, // You might want to set default values or leave it empty initially
+                    station: values?.Route_1,
                     time: values?.Time_1,
                   },
                 ])

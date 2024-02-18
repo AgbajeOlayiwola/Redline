@@ -103,3 +103,21 @@
   width: 68%;
   text-align: center;
 }
+@media screen and (max-width: 900px) {
+  .add_agent {
+    width: fit-content;
+  }
+  .modalInner {
+    padding: 20px 15px;
+    width: 74vw;
+    z-index: 3;
+    height: 30vh;
+    display: flex;
+    background: white;
+    flex-direction: column;
+    gap: 30px;
+    border-radius: 20px;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

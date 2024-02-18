@@ -14,7 +14,19 @@ import styles from "./styles.module.css"
 const MainDash = ({ nextPage }: { nextPage: any }) => {
   const [selectedTrain, setSelectedTrain] = useState(null)
   const dispatch = useDispatch()
-
+  const [width, setWidth] = useState(0)
+  const [height, setHeight] = useState(0)
+  const handleWindowResize = () => {
+    setWidth(window.innerWidth)
+    setHeight(window.innerHeight)
+  }
+  useEffect(() => {
+    setWidth(window.innerWidth)
+    setHeight(window.innerHeight)
+    handleWindowResize()
+    window.addEventListener("resize", handleWindowResize)
+    return () => window.removeEventListener("resize", handleWindowResize)
+  }, [width])
   const handleTrainSelect = (trainId: any) => {
     setSelectedTrain(trainId)
   }
@@ -165,15 +177,17 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           )}
         </div>
       </div>
-      <div className={styles.dash_top}>
-        <div className={styles.red_sched}>
-          <p>Ticket sales summary</p>
-          <div>
-            <PrimarySelect label={""} options={data} onchange={() => null} />
+      {width > 900 ? (
+        <div className={styles.dash_top}>
+          <div className={styles.red_sched}>
+            <p>Ticket sales summary</p>
+            <div>
+              <PrimarySelect label={""} options={data} onchange={() => null} />
+            </div>
           </div>
+          <VerticalBarChart ChartData={chartData} />
         </div>
-        <VerticalBarChart ChartData={chartData} />
-      </div>
+      ) : null}
     </div>
   )
 }

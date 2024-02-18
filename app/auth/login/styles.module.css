@@ -86,3 +86,12 @@
   font-size: 10px;
   margin: 0px;
 }
+@media screen and (max-width: 900px) {
+  .loginBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    width: 100vw;
+  }
+}

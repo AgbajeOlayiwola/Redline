@@ -2,6 +2,7 @@
   border-radius: 100px;
   border: 1px solid var(--Darkgrey-500, #0f0f0f);
   padding: 5px 16px;
+  width: fit-content;
   cursor: pointer;
 }
 .outline_btn > p {
@@ -13,4 +14,17 @@
   line-height: 24px; /* 171.429% */
   text-transform: capitalize;
   margin: 0px;
+}
+
+@media screen and (max-width: 900px) {
+  .outline_btn > p {
+    color: var(--Darkgrey-500, #0f0f0f);
+    /* Mobile/Button */
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 171.429% */
+    text-transform: capitalize;
+    margin: 0px;
+  }
 }
