@@ -61,7 +61,7 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
       error: fetchComplaintsErr,
       reset: fetchComplaintsReset,
     },
-  ] = useFetchComplaintsMutation()
+  ]: any = useFetchComplaintsMutation()
   useEffect(() => {
     const data = {
       userID: id,
@@ -69,7 +69,6 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
       limit: "",
     }
     fetchComplaints(data)
-    console.log(fetchComplaintsData)
   }, [])
   useEffect(() => {
     if (fetchComplaintsSuccess) {
@@ -123,6 +122,7 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
         <div className={styles.tableMain}>
           <Table
             load={fetchComplaintsLoad}
+            editDelete={false}
             noItemFound={convertedData?.length <= 0 ? true : false}
             table_head={table_head}
             table_body={convertedData}

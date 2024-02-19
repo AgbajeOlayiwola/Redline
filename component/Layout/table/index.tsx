@@ -13,6 +13,7 @@ const Table = ({
   editModal,
   noItemFound,
   load,
+  editDelete,
 }: {
   table_head?: any
   table_body?: any
@@ -21,6 +22,7 @@ const Table = ({
   editModal?: any
   noItemFound?: any
   load: any
+  editDelete: boolean
 }) => {
   const dispatch = useDispatch()
   const [showAction, setShowAction] = useState(false)
@@ -98,16 +100,20 @@ const Table = ({
                               View Details
                             </p>
                           )}
-                          <p
-                            onClick={() => {
-                              dispatch(setEditAgentt(item)), editModal()
-                            }}
-                          >
-                            Edit
-                          </p>
-                          <h6 onClick={() => deleteAction(item?.ref)}>
-                            Delete
-                          </h6>
+                          {editDelete ? (
+                            <>
+                              <p
+                                onClick={() => {
+                                  dispatch(setEditAgentt(item)), editModal()
+                                }}
+                              >
+                                Edit
+                              </p>
+                              <h6 onClick={() => deleteAction(item?.ref)}>
+                                Delete
+                              </h6>
+                            </>
+                          ) : null}
                         </div>
                       ) : null}
                     </div>

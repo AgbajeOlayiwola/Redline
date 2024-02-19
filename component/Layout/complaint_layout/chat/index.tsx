@@ -8,6 +8,8 @@ import {
 } from "@/redux/api/mutationApi"
 import { useEffect, useState } from "react"
 import { LuMessagesSquare } from "react-icons/lu"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import styles from "./styls.module.css"
 const ComplaintChat = ({ chat }: { chat: any }) => {
   const [message, setMessage] = useState("")
@@ -75,8 +77,31 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
 
     markComplaints(data)
   }
+  const showToastSuccessMessage = () => {
+    toast.success("Complaint Resolved Successfully", {
+      position: "top-right",
+    })
+  }
+  const showToastErrorMessage = () => {
+    toast.error("Complaint resolve error ", {
+      position: "top-right",
+    })
+  }
+  useEffect(() => {
+    if (markComplaintsErr) {
+      showToastErrorMessage()
+    }
+  }, [markComplaintsErr])
+
+  useEffect(() => {
+    if (markComplaintsSuccess) {
+      showToastSuccessMessage()
+    }
+  }, [markComplaintsSuccess])
+
   return (
     <>
+      <ToastContainer />
       {chat ? (
         <div>
           <div className={styles.chat_box}>
@@ -90,6 +115,7 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
               <OutlineButton
                 text="Resolve ticket"
                 onClick={() => resolveComplaint()}
+                loads={markComplaintsLoad}
               />
             </div>
             <hr />

@@ -4,6 +4,9 @@
   padding: 5px 16px;
   width: fit-content;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .outline_btn > p {
   color: var(--Darkgrey-500, #0f0f0f);

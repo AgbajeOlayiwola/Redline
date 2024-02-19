@@ -134,6 +134,7 @@ const AllUsers = ({
           deleteModal(), customerId(id)
         }}
         load={getUsersLoad}
+        editDelete={false}
         editModal={() => ShowModal()}
         table_head={table_head}
         noItemFound={getUsersData?.length === 0 ? true : false}

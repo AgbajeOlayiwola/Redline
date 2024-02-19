@@ -404,6 +404,7 @@ const Agent = () => {
           }}
           editModal={() => setShowModal(true)}
           table_head={table_head}
+          editDelete={true}
           load={getOrganizationUsersLoad}
           table_body={convertedData}
           onClick={() => null}

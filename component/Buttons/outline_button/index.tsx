@@ -1,9 +1,17 @@
+import { RiLoader2Line } from "react-icons/ri"
 import styles from "./styles.module.css"
-
-const OutlineButton = ({ text, onClick }: { text: string; onClick: any }) => {
+const OutlineButton = ({
+  text,
+  onClick,
+  loads,
+}: {
+  text: string
+  onClick: any
+  loads?: any
+}) => {
   return (
     <div className={styles.outline_btn} onClick={onClick}>
-      <p> {text}</p>
+      {loads ? <RiLoader2Line /> : <p> {text}</p>}
     </div>
   )
 }
