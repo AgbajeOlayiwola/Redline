@@ -81,7 +81,7 @@ const LoginLayout = () => {
             <PrimaryInput
               label="Password"
               name="password"
-              type="text"
+              type="password"
               value={values?.password}
               onchange={(e: any) => setFieldValue("password", e.target.value)}
               placeholder="Enter Password"
