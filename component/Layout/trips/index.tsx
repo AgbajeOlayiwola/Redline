@@ -69,6 +69,7 @@ const EachUsrTrips = ({ id, previous }: { id: any; previous: any }) => {
       <br />
       <br />
       <Table
+        editDelete={false}
         table_head={table_head}
         table_body={convertedData}
         onClick={() => null}
