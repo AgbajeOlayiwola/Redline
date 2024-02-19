@@ -29,7 +29,6 @@
   font-style: normal;
   font-weight: 700;
   line-height: 24px; /* 171.429% */
-  text-transform: capitalize;
 }
 .pInput input:focus {
   outline: none;
