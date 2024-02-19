@@ -168,6 +168,9 @@
   width: 68%;
   text-align: center;
 }
+.more svg {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 900px) {
   .all_trips {
