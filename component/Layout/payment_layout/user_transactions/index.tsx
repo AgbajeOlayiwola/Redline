@@ -69,6 +69,7 @@ const EachUsrTransactions = ({ id, previous }: { id: any; previous: any }) => {
       <br />
       <br />
       <Table
+        editDelete={false}
         table_head={table_head}
         load={getUsersTransactionsLoad}
         table_body={convertedData}
