@@ -88,6 +88,7 @@ const TicketSale = () => {
           </div>
         </div>
         <Table
+          editDelete={false}
           load={null}
           table_head={table_head}
           table_body={table_body}
