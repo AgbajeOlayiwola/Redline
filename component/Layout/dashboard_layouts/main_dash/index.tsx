@@ -1,18 +1,34 @@
 "use client"
+import PrimartButton from "@/component/Buttons/PrimaryButton"
 import OutlineButton from "@/component/Buttons/outline_button"
+import PrimaryInput from "@/component/Inputs/PrimmaryInput"
 import Locationsvggreen from "@/component/SVGs/locationsvggreen"
 import Trans_train from "@/component/SVGs/trans_train"
 import LoadingAnimation from "@/component/animations/loadingAnimation"
 import { VerticalBarChart } from "@/component/vertical_bar_chart"
-import { useFetchTrainMutation } from "@/redux/api/mutationApi"
+import {
+  useAddNotificationsMutation,
+  useDeleteTrainMutation,
+  useFetchTrainMutation,
+} from "@/redux/api/mutationApi"
 import { setAllTrain } from "@/redux/slices/allTrainSlice"
 import { setSingleTrain } from "@/redux/slices/singleTrainSlice"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import Modal from "../../modal"
 import PrimarySelect from "../../primary_select"
 import styles from "./styles.module.css"
+
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 const MainDash = ({ nextPage }: { nextPage: any }) => {
   const [selectedTrain, setSelectedTrain] = useState(null)
+  const [modal, setModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const { profile } = useSelector((store) => store)
+  const [title, setTitle] = useState("")
+  const [descriptions, setDescription] = useState("")
+  console.log(profile)
   const dispatch = useDispatch()
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
@@ -20,6 +36,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
     setWidth(window.innerWidth)
     setHeight(window.innerHeight)
   }
+
   useEffect(() => {
     setWidth(window.innerWidth)
     setHeight(window.innerHeight)
@@ -77,6 +94,41 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
     },
   ] = useFetchTrainMutation()
 
+  const [
+    addNotifications,
+    {
+      data: addNotificationsData,
+      isLoading: addNotificationsLoad,
+      isSuccess: addNotificationsSuccess,
+      isError: addNotificationsFalse,
+      error: addNotificationsErr,
+    },
+  ] = useAddNotificationsMutation()
+  const [
+    deleteTrain,
+    {
+      data: deleteTrainData,
+      isLoading: deleteTrainLoad,
+      isSuccess: deleteTrainSuccess,
+      isError: deleteTrainFalse,
+      error: deleteTrainErr,
+    },
+  ] = useDeleteTrainMutation()
+
+  const notifications = () => {
+    const data = {
+      notifications: [
+        {
+          title: title,
+          description: descriptions,
+          type: "ALERTS",
+          userID: profile?.user?.user_id,
+        },
+      ],
+    }
+    setModal(addNotifications(data))
+  }
+
   useEffect(() => {
     const data = {
       status: "",
@@ -93,17 +145,90 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
     const found = fetchTrainData?.trains?.find(
       (train: any) => train?.train_id === selectedTrain
     )
+    console.log(found)
     dispatch(setSingleTrain(found))
     nextPage()
   }
+  const deleteTrainFunc = () => {
+    const found = fetchTrainData?.trains?.find(
+      (train: any) => train?.train_id === selectedTrain
+    )
+    console.log(found)
+    const data = { train_id: found?.train_id }
+    deleteTrain(data)
+  }
+  const handleAdd = () => {
+    nextPage()
+  }
+  const showToastDeletTrainErrorMessage = () => {
+    toast.error("Unabl to delete train try again", {
+      position: "top-right",
+    })
+  }
+  const showToastDeletTrainSuccesMessage = () => {
+    toast.success("Unabl to delete train try again", {
+      position: "top-right",
+    })
+  }
+  useEffect(() => {
+    if (deleteTrainSuccess) {
+      showToastDeletTrainSuccesMessage()
+      setDeleteModal(false)
+      const data = {
+        status: "",
+      }
+      fetchTrain(data)
+    }
+  }, [deleteTrainSuccess])
+  useEffect(() => {
+    if (deleteTrainErr) {
+      showToastDeletTrainErrorMessage()
+    }
+  }, [deleteTrainErr])
+
+  const showToastErrorMessage = () => {
+    toast.error("Notification Failed ", {
+      position: "top-right",
+    })
+  }
+  useEffect(() => {
+    if (addNotificationsErr) {
+      showToastErrorMessage()
+    }
+  }, [addNotificationsErr])
+
+  const showToastSuccessMessage = () => {
+    toast.error("Notification Sent Successfullt ", {
+      position: "top-right",
+    })
+  }
+  useEffect(() => {
+    if (addNotificationsSuccess) {
+      showToastSuccessMessage()
+      setModal(false)
+    }
+  }, [addNotificationsSuccess])
   const data = ["Today", "Last 7 days", "Last month", "Last year"]
   return (
     <div>
+      <ToastContainer />
       <div className={styles.dash_top}>
         <div className={styles.red_sched}>
           <p>Redline Schedule</p>
           <div>
-            <OutlineButton text="Edit Schedule" onClick={handleEdit} />
+            <div className={styles.flexButtons}>
+              <OutlineButton text="Edit Train" onClick={handleEdit} />
+              <OutlineButton text="Add Train" onClick={handleAdd} />
+            </div>
+            <br />
+            <div className={styles.flexButtons}>
+              <PrimartButton
+                text="Send Not6ification"
+                onClick={() => setModal(true)}
+                active={true}
+                load={null}
+              />
+            </div>
           </div>
         </div>
         <div className={styles.trains}>
@@ -187,6 +312,32 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
           </div>
           <VerticalBarChart ChartData={chartData} />
         </div>
+      ) : null}
+      {modal ? (
+        <Modal close={() => setModal(false)}>
+          <div className={styles.popup}>
+            <PrimaryInput
+              label="title"
+              type="text"
+              name="title"
+              onchange={(e) => setTitle(e.target.value)}
+              placeholder={"Notification title"}
+              value={title}
+            />
+            <textarea
+              cols={59}
+              rows={9}
+              onChange={(e) => setDescription(e.target.value)}
+              value={descriptions}
+            ></textarea>
+            <PrimartButton
+              text="Send Not6ification"
+              onClick={notifications}
+              active={true}
+              load={addNotificationsLoad}
+            />
+          </div>
+        </Modal>
       ) : null}
     </div>
   )

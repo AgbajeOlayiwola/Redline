@@ -3,6 +3,7 @@
   height: 100vh;
   padding-bottom: 8%;
   padding-top: 50px;
+  overflow: scroll;
 }
 .filter_div {
   display: flex;

@@ -10,6 +10,11 @@
   background: #bbbbbcc9;
   z-index: 9999;
 }
+.close {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
 .inner {
   background: white;
   padding: 24px;

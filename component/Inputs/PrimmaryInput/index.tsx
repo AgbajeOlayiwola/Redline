@@ -1,4 +1,4 @@
-import styles from './styles.module.css'
+import styles from "./styles.module.css"
 
 const PrimaryInput = ({
   label,
@@ -8,12 +8,12 @@ const PrimaryInput = ({
   placeholder,
   value,
 }: {
-  label: string
+  label?: string
   type: string
   name: string
-  onchange: any
-  placeholder: string
-  value:any
+  onchange?: any
+  placeholder?: string
+  value?: any
 }) => {
   return (
     <div className={styles.pInput}>

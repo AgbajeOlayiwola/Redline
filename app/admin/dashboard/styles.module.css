@@ -2,4 +2,14 @@
   background: #f9fafb;
   height: 100vh;
   padding-bottom: 8%;
+  overflow: scroll;
+}
+.dash_layout::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.dash_layout {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

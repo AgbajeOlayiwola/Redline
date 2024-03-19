@@ -3,6 +3,7 @@
   height: 100vh;
   padding-bottom: 8%;
   padding-top: 50px;
+  overflow: scroll;
 }
 .filter_div {
   display: flex;
@@ -22,4 +23,13 @@
   line-height: 18px;
   letter-spacing: 0em;
   text-align: left;
+}
+.dash_layout::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.dash_layout {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

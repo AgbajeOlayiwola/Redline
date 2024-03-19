@@ -1,22 +1,29 @@
 import BurgerMenuSVg from "@/component/SVGs/burgerMenuSVg"
 import Logosvg from "@/component/SVGs/logosvg"
+import { clearProfile } from "@/redux/slices/profileSlice"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { IoLogOutOutline } from "react-icons/io5"
+import { useDispatch, useSelector } from "react-redux"
 import Cover from "../cover"
 import styles from "./styles.module.css"
-
 const Navbar = () => {
   const { profile }: any = useSelector((store) => store)
   const navigation = usePathname()
+  const dispatch = useDispatch()
+  const router = useRouter()
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [mobileMenu, setMobileMenu] = useState(false)
   const handleWindowResize = () => {
     setWidth(window.innerWidth)
     setHeight(window.innerHeight)
+  }
+  const Logout = async () => {
+    await dispatch(clearProfile())
+    router.push("/", { scroll: false })
   }
   useEffect(() => {
     setWidth(window.innerWidth)
@@ -102,6 +109,7 @@ const Navbar = () => {
                   <h1>{profile?.user?.fullName}</h1>
                   <p>{profile?.user?.role.replace("_", " ")}</p>
                 </div>
+                <IoLogOutOutline onClick={() => Logout()} />
               </div>
             </>
           ) : (
@@ -145,6 +153,7 @@ const Navbar = () => {
                       <h1>{profile?.user?.fullName}</h1>
                       <p>{profile?.user?.role.replace("_", " ")}</p>
                     </div>
+                    <IoLogOutOutline />
                   </div>
                 </>
               ) : null}
