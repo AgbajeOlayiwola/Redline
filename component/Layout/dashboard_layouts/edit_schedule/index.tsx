@@ -101,7 +101,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
   const saveChanges = () => {
     editTrain(singleTrainState)
   }
-
+  console.log("single train", singleTrainState)
   useEffect(() => {
     if (editTrainSuccess) {
       previous()
@@ -194,7 +194,7 @@ const EditSchedule = ({ previous }: { previous: any }) => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, { setSubmitting }) => {
-                const formattedTrains = values.trains.map((train) => ({
+                const formattedTrains = values.trains.map((train: any) => ({
                   name: train.name,
                   route: train.routes.map((route: any) => ({
                     station: route.station,
@@ -387,20 +387,19 @@ const EditSchedule = ({ previous }: { previous: any }) => {
             <Formik
               initialValues={editinitialValues}
               onSubmit={(values, { setSubmitting }) => {
-                const formattedTrains = values.trains.map((train) => ({
+                const formattedTrains = values.trains.map((train: any) => ({
                   name: train.name,
-                  route: train.routes.map((route) => ({
+                  route: train.routes.map((route: any) => ({
                     station: route.station,
                     departureTime: route.departureTimes,
                     arrivalTime: route.arrivalTimes,
                   })),
                   status: train.status,
                 }))
-
+                console.log(singleTrain)
                 // Formatted object with 'trains' array in the desired structure
                 const formattedValues = { trains: formattedTrains }
 
-                createTrain(formattedValues)
                 setSubmitting(false)
               }}
             >

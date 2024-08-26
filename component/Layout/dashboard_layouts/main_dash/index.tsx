@@ -25,7 +25,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [modal, setModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
-  const { profile } = useSelector((store) => store)
+  const { profile }: any = useSelector((store) => store)
   const [title, setTitle] = useState("")
   const [descriptions, setDescription] = useState("")
   console.log(profile)
@@ -305,7 +305,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       {width > 900 ? (
         <div className={styles.dash_top}>
           <div className={styles.red_sched}>
-            <p>Ticket sales summary</p>
+            <p>Ticket Usage summary</p>
             <div>
               <PrimarySelect label={""} options={data} onchange={() => null} />
             </div>
@@ -320,7 +320,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
               label="title"
               type="text"
               name="title"
-              onchange={(e) => setTitle(e.target.value)}
+              onchange={(e: any) => setTitle(e.target.value)}
               placeholder={"Notification title"}
               value={title}
             />

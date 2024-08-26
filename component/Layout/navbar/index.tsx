@@ -40,7 +40,7 @@ const Navbar = () => {
       active: true,
     },
     {
-      title: "Transactions",
+      title: "Ticket Sales management",
       link: "/admin/transactions",
       active: true,
     },
@@ -49,7 +49,11 @@ const Navbar = () => {
       link: "/admin/trips",
       active: true,
     },
-
+    {
+      title: "User Management",
+      link: "#",
+      active: true,
+    },
     {
       title: "Complaint",
       link: "/admin/complaint",
@@ -71,7 +75,9 @@ const Navbar = () => {
       <Cover>
         <div className={styles.navCov}>
           <div>
-            <Logosvg wid="78" hei="32" />
+            <Link href="/admin/dashboard">
+              <Logosvg wid="78" hei="32" />
+            </Link>
           </div>
           {width > 900 ? (
             <>
