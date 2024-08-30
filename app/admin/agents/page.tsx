@@ -218,7 +218,7 @@ const Agent = () => {
   return (
     <div className={styles.dash_layout}>
       {showModal ? (
-        <Modal>
+        <Modal close={null}>
           <Formik
             validationSchema={editAgent?.customer ? null : initSchema}
             initialValues={initialValues}
@@ -409,6 +409,7 @@ const Agent = () => {
           table_body={convertedData}
           onClick={() => null}
           noItemFound={convertedData?.length <= 0 ? true : false}
+          hasMore={true}
         />
       </Cover>
       {deletModala ? (

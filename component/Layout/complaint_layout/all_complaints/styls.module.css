@@ -30,7 +30,7 @@
   gap: 10px;
 }
 .complaint_flex > .tableMain {
-  width: 70%;
+  width: 100%;
 }
 .complaint_flex > .tableMain > div > p {
   font-size: 12px !important;

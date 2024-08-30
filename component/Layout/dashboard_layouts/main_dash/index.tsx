@@ -19,6 +19,7 @@ import Modal from "../../modal"
 import PrimarySelect from "../../primary_select"
 import styles from "./styles.module.css"
 
+import { useTrainTrafficQuery } from "@/redux/api/queryApi"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 const MainDash = ({ nextPage }: { nextPage: any }) => {
@@ -93,7 +94,14 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       reset: fetchTrainReset,
     },
   ] = useFetchTrainMutation()
-
+  const {
+    data: trainTrafficData,
+    isLoading: trainTrafficLoad,
+    isSuccess: trainTrafficSuccess,
+    isError: trainTrafficFalse,
+    error: trainTrafficErr,
+    refetch: trainTrafficReset,
+  } = useTrainTrafficQuery(null)
   const [
     addNotifications,
     {
@@ -103,7 +111,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
       isError: addNotificationsFalse,
       error: addNotificationsErr,
     },
-  ] = useAddNotificationsMutation()
+  ]: any = useAddNotificationsMutation()
   const [
     deleteTrain,
     {
@@ -269,6 +277,7 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
                     <div>
                       <h1>{station?.station}</h1>
                       <p>{station?.time}</p>
+                      <p>{station?.departureTime[0]}</p>
                     </div>
                   ) : null}
                 </div>
@@ -296,6 +305,11 @@ const MainDash = ({ nextPage }: { nextPage: any }) => {
                   <Locationsvggreen />
                   <p>{station?.station}</p>
                   <p>{station?.time}</p>
+
+                  <p className={styles.departure}>
+                    {station?.departureTime[0]}
+                  </p>
+                  <p className={styles.arrival}>{station?.arrivalTime[0]}</p>
                   <div className={styles.point}></div>
                 </div>
               ))

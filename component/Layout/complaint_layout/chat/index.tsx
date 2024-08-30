@@ -1,8 +1,11 @@
 import PrimartButton from "@/component/Buttons/PrimaryButton"
 import OutlineButton from "@/component/Buttons/outline_button"
+import Back_svg from "@/component/SVGs/back_svg"
 import Circle_svg from "@/component/SVGs/circle_svg"
 import Send_svg from "@/component/SVGs/send_svg"
+import LoadingAnimation from "@/component/animations/loadingAnimation"
 import {
+  useFetchSingleComplaintsMutation,
   useMarkComplaintsMutation,
   useReplyComplaintsMutation,
 } from "@/redux/api/mutationApi"
@@ -11,7 +14,7 @@ import { LuMessagesSquare } from "react-icons/lu"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import styles from "./styls.module.css"
-const ComplaintChat = ({ chat }: { chat: any }) => {
+const ComplaintChat = ({ chat, previous }: { chat: any; previous: any }) => {
   const [message, setMessage] = useState("")
   const [chats, setChats] = useState<any>([])
 
@@ -20,7 +23,7 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
       setChats([...chat?.messages])
     }
   }, [chat])
-
+  console.log(chat)
   const [
     replyComplaints,
     {
@@ -32,6 +35,25 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
       reset: replyComplaintsReset,
     },
   ]: any = useReplyComplaintsMutation()
+  const [
+    fetchSingleComplaints,
+    {
+      data: fetchSingleComplaintsData,
+      isLoading: fetchSingleComplaintsLoad,
+      isSuccess: fetchSingleComplaintsSuccess,
+      isError: fetchSingleComplaintsFalse,
+      error: fetchSingleComplaintsErr,
+      reset: fetchSingleComplaintsReset,
+    },
+  ]: any = useFetchSingleComplaintsMutation()
+  useEffect(() => {
+    const data = {
+      userID: "66706bdda5067212fec15bc9",
+      complaintId: "6672a990df130c5c4cfcb440",
+    }
+    fetchSingleComplaints(data)
+  }, [])
+
   const [
     markComplaints,
     {
@@ -101,8 +123,14 @@ const ComplaintChat = ({ chat }: { chat: any }) => {
 
   return (
     <>
+      <div className={styles.add_agent}>
+        <Back_svg onClick={() => previous()} />
+        <h1>Complaints</h1>
+      </div>
       <ToastContainer />
-      {chat ? (
+      {fetchSingleComplaintsLoad ? (
+        <LoadingAnimation />
+      ) : chat ? (
         <div>
           <div className={styles.chat_box}>
             <div className={styles.chatTop}>

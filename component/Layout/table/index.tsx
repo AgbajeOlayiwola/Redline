@@ -14,6 +14,7 @@ const Table = ({
   noItemFound,
   load,
   editDelete,
+  hasMore,
 }: {
   table_head?: any
   table_body?: any
@@ -23,6 +24,7 @@ const Table = ({
   noItemFound?: any
   load: any
   editDelete: boolean
+  hasMore?: any
 }) => {
   const dispatch = useDispatch()
   const [showAction, setShowAction] = useState(false)
@@ -91,32 +93,36 @@ const Table = ({
                     <div>
                       <p>{item?.status?.replace("_", " ").toLowerCase()}</p>
                     </div>
-                    <div className={styles.action}>
-                      <FiMoreVertical onClick={() => handleToggleEdit(index)} />
-                      {showAction && selectedItemIndex === index ? (
-                        <div className={styles.show}>
-                          {navigation == "/admin/agents" ? null : (
-                            <p onClick={() => onClick(item?.ref)}>
-                              View Details
-                            </p>
-                          )}
-                          {editDelete ? (
-                            <>
-                              <p
-                                onClick={() => {
-                                  dispatch(setEditAgentt(item)), editModal()
-                                }}
-                              >
-                                Edit
+                    {hasMore ? (
+                      <div className={styles.action}>
+                        <FiMoreVertical
+                          onClick={() => handleToggleEdit(index)}
+                        />
+                        {showAction && selectedItemIndex === index ? (
+                          <div className={styles.show}>
+                            {navigation == "/admin/agents" ? null : (
+                              <p onClick={() => onClick(item?.ref)}>
+                                View Details
                               </p>
-                              <h6 onClick={() => deleteAction(item?.ref)}>
-                                Delete
-                              </h6>
-                            </>
-                          ) : null}
-                        </div>
-                      ) : null}
-                    </div>
+                            )}
+                            {editDelete ? (
+                              <>
+                                <p
+                                  onClick={() => {
+                                    dispatch(setEditAgentt(item)), editModal()
+                                  }}
+                                >
+                                  Edit
+                                </p>
+                                <h6 onClick={() => deleteAction(item?.ref)}>
+                                  Delete
+                                </h6>
+                              </>
+                            ) : null}
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </div>
                 ) : (
                   <div key={index} className={styles.table_body}>
@@ -129,7 +135,8 @@ const Table = ({
                       <FiMoreVertical onClick={() => handleToggleEdit(index)} />
                       {showAction && selectedItemIndex === index ? (
                         <div className={styles.show}>
-                          {navigation == "/admin/agents" ? null : (
+                          {navigation == "/admin/agents" ||
+                          navigation == "/admin/complaint" ? null : (
                             <p onClick={() => onClick(item?.ref)}>
                               View Details
                             </p>

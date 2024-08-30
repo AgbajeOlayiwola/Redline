@@ -1,6 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-const baseUrl = "https://api.staging.bankitafrica.com"
+const baseUrl = "https://fmil-backend-3rqwa.ondigitalocean.app/v1/api"
 
 // const baseUrl = 'https://bankit-two.vercel.app/api/v1';
 
@@ -8,8 +8,8 @@ export const queryApi = createApi({
   reducerPath: "queryApi",
   baseQuery: fetchBaseQuery({
     baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState()?.token
+    prepareHeaders: (headers: any, { getState }: any) => {
+      const token = getState()?.cookie
       headers.set("x-api-key", "aXA7DdqHKemWwXO5maT1hiLuWbOYTyFB")
       headers.set("Accept", "application/json")
       headers.set("Content-Type", "application/json")
@@ -19,7 +19,7 @@ export const queryApi = createApi({
       return headers
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: (builder: any) => ({
     getProfile: builder.query({
       query: () => {
         return {
@@ -27,7 +27,14 @@ export const queryApi = createApi({
         }
       },
     }),
+    trainTraffic: builder.query({
+      query: () => {
+        return {
+          url: "trips/total-traffic",
+        }
+      },
+    }),
   }),
 })
 
-export const { useGetBeneficiariesQuery } = queryApi
+export const { useTrainTrafficQuery } = queryApi

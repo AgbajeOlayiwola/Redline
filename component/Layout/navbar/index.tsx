@@ -40,20 +40,21 @@ const Navbar = () => {
       active: true,
     },
     {
-      title: "Ticket Sales management",
+      title: "Ticket sales",
       link: "/admin/transactions",
       active: true,
     },
     {
-      title: "Trips",
-      link: "/admin/trips",
-      active: true,
-    },
-    {
-      title: "User Management",
+      title: "Customers",
       link: "#",
       active: true,
     },
+    {
+      title: "Payment",
+      link: "/admin/trips",
+      active: true,
+    },
+
     {
       title: "Complaint",
       link: "/admin/complaint",

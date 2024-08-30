@@ -14,6 +14,7 @@ import {
 } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import { mutationApi } from "../api/mutationApi"
+import { queryApi } from "../api/queryApi"
 import allTrainReducr from "../slices/allTrainSlice"
 import cookieReducer from "../slices/cookieSlice"
 import editAgentReducer from "../slices/edit-agent-slice"
@@ -22,6 +23,7 @@ import profileReduceer from "../slices/profileSlice"
 import singleTrainReducer from "../slices/singleTrainSlice"
 const reducers = combineReducers({
   [mutationApi.reducerPath]: mutationApi.reducer,
+  [queryApi.reducerPath]: queryApi.reducer,
   cookie: cookieReducer,
   profile: profileReduceer,
   singleTrain: singleTrainReducer,
@@ -53,7 +55,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(mutationApi.middleware),
+    }).concat(mutationApi.middleware, queryApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

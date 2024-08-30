@@ -149,9 +149,10 @@ export const mutationApi = createApi({
       query: (body) => ({
         url: "organization/fetch-complaints",
         method: "POST",
-        body,
+        body: {},
       }),
     }),
+
     fetchSingleComplaints: builder.mutation({
       query: (body) => ({
         url: "organization/fetch-complaints/single",

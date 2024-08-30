@@ -147,6 +147,24 @@
   position: absolute;
   left: 35vw;
 }
+.arrival {
+  color: var(--Green-600, #d56b2e);
+
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+}
+.departure {
+  color: var(--Green-600, #249645);
+
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+}
 @media screen and (max-width: 900px) {
   .red_sched {
     display: block;

@@ -1,23 +1,21 @@
 "use client"
-import Back_svg from "@/component/SVGs/back_svg"
 import { useFetchComplaintsMutation } from "@/redux/api/mutationApi"
 import { useEffect, useState } from "react"
 import Table from "../../table"
-import ComplaintChat from "../chat"
 import styles from "./styls.module.css"
-const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
+const AllComplaints = ({ id, chatData }: { id: any; chatData: any }) => {
   const [convertedData, setConvertedData] = useState<any[]>([])
-  const [chatData, setChatData] = useState()
+
   const [roles, setRoles] = useState("")
   const [displayType, setDisplayType] = useState("")
   const table_head = [
     { text: "Customer ID" },
     { text: "Customer" },
-    { text: "Phone" },
+    { text: "Assigned To" },
     { text: "Date created" },
-    { text: "Role" },
+    { text: "Time Created" },
     { text: "Progress" },
-    { text: "Actions" },
+    { text: "" },
   ]
   const table_body = [
     {
@@ -63,12 +61,7 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
     },
   ]: any = useFetchComplaintsMutation()
   useEffect(() => {
-    const data = {
-      userID: id,
-      page: "",
-      limit: "",
-    }
-    fetchComplaints(data)
+    fetchComplaints()
   }, [])
   useEffect(() => {
     if (fetchComplaintsSuccess) {
@@ -77,9 +70,9 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
         return {
           ref: user.id,
           customer: user.userDetails.fullname,
-          amount: user.userDetails.role,
+          amount: user.createdAt.split("T")[1],
           Date: user.createdAt,
-          type: user.userDetails.phone,
+          type: user.userDetails.fullname,
           status: user.status,
         }
       }
@@ -109,12 +102,11 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
     const targetComplaint = fetchComplaintsData?.complaints?.find(
       (complaint: any) => complaint.id === targetComplaintId
     )
-    setChatData(targetComplaint)
+    chatData(targetComplaint)
   }
   return (
     <>
       <div className={styles.add_agent}>
-        <Back_svg onClick={() => previous()} />
         <h1>Complaints</h1>
       </div>
 
@@ -129,9 +121,9 @@ const AllComplaints = ({ id, previous }: { id: any; previous: any }) => {
             onClick={(id: any) => {
               searchParticularData(id)
             }}
+            hasMore={true}
           />
         </div>
-        <ComplaintChat chat={chatData} />
       </div>
     </>
   )

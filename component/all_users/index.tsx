@@ -140,6 +140,7 @@ const AllUsers = ({
         noItemFound={getUsersData?.length === 0 ? true : false}
         table_body={convertedData}
         onClick={(id: any) => openNext(id)}
+        hasMore={false}
       />
     </div>
   )
